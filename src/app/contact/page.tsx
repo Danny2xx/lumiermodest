@@ -1,36 +1,34 @@
+import BrandStamp from "@/components/BrandStamp";
+import ContactForm from "@/components/ContactForm";
+
 export const metadata = { title: "Contact — LumierModest" };
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-xl px-6 py-20">
-      <h1 className="font-serif text-4xl text-taupe-dark">Contact Us</h1>
-      <p className="mt-4 font-sans text-sm text-espresso/80">
-        Have a question about an order, sizing, or anything else? Reach out
-        and we&apos;ll get back to you within 1–2 business days.
+    <div className="relative mx-auto max-w-xl px-6 py-20 text-center">
+      <BrandStamp className="absolute right-6 top-4" />
+
+      <h1 className="font-script text-5xl text-taupe-dark">Contact us</h1>
+      <p className="mt-6 font-sans text-sm leading-relaxed text-espresso/80">
+        We&apos;d love to hear from you. Whether it&apos;s about your order,
+        sizing, or a collaboration — our team is here to help and will get
+        back to you within 1–2 business days.
       </p>
-      <form className="mt-8 flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Name"
-          className="border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe"
-        />
-        <textarea
-          placeholder="Message"
-          rows={5}
-          className="border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe"
-        />
-        <button
-          type="submit"
-          className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso"
-        >
-          Send Message
-        </button>
-      </form>
+
+      <div className="mt-6 font-sans text-sm text-espresso/80">
+        <p>Email us: hello@lumiermodest.com</p>
+        <p>Instagram: @lumiermodest</p>
+        <p>TikTok: @lumiermodest</p>
+      </div>
+
+      <h2 className="mt-14 font-script text-3xl text-taupe">Contact form</h2>
+      <p className="mt-2 font-sans text-sm text-espresso/70">
+        You can also reach us directly through the form below.
+      </p>
+
+      <div className="text-left">
+        <ContactForm />
+      </div>
     </div>
   );
 }

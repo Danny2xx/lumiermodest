@@ -1,15 +1,11 @@
+import BrandStamp from "@/components/BrandStamp";
+
 export const metadata = { title: "About — LumierModest" };
 
 export default function AboutPage() {
   return (
     <div className="relative mx-auto max-w-3xl px-6 py-20">
-      <div className="pointer-events-none absolute right-6 top-16 hidden h-24 w-24 rotate-6 items-center justify-center rounded-full border border-taupe/30 text-center font-sans text-[9px] uppercase leading-tight tracking-[0.1em] text-taupe/60 sm:flex">
-        London
-        <br />
-        Est. 2026
-        <br />
-        UK
-      </div>
+      <BrandStamp className="absolute right-6 top-16" />
 
       <h1 className="font-script text-6xl text-taupe-dark">About</h1>
 
