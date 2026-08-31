@@ -1,5 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
+import CookiePreferences from "./CookiePreferences";
+
+function InstagramIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function TikTokIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16.6 5.1c-.9-.6-1.5-1.6-1.6-2.7h-3.1v13.4c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5c.3 0 .5 0 .8.1v-3.2c-.3 0-.5-.1-.8-.1-3.1 0-5.6 2.5-5.6 5.6s2.5 5.6 5.6 5.6 5.6-2.5 5.6-5.6V9c1.2.9 2.7 1.4 4.2 1.4V7.3c-.9 0-1.8-.3-2.6-.8-.1 0-.1-.1-.2-.1z" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -56,9 +75,9 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-taupe/15 px-6 py-6">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 font-sans text-xs text-espresso/60 md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 font-sans text-xs text-espresso/60 md:flex-row">
           <p>© {new Date().getFullYear()} LumierModest. All rights reserved.</p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="hover:text-taupe">
               Privacy policy
             </Link>
@@ -68,6 +87,33 @@ export default function Footer() {
             <Link href="/terms" className="hover:text-taupe">
               Terms of service
             </Link>
+            <Link href="/shipping" className="hover:text-taupe">
+              Shipping policy
+            </Link>
+            <Link href="/contact" className="hover:text-taupe">
+              Contact information
+            </Link>
+            <CookiePreferences />
+          </div>
+          <div className="flex gap-4">
+            <a
+              href="https://instagram.com/lumiermodest"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hover:text-taupe"
+            >
+              <InstagramIcon />
+            </a>
+            <a
+              href="https://tiktok.com/@lumiermodest"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              className="hover:text-taupe"
+            >
+              <TikTokIcon />
+            </a>
           </div>
         </div>
       </div>
