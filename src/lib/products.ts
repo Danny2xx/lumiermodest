@@ -5,6 +5,7 @@ export type Product = {
   slug: string;
   name: string;
   price: number;
+  originalPrice?: number;
   category: Category;
   description: string;
   sizes: string[];
@@ -27,7 +28,8 @@ export const products: Product[] = [
     id: "2",
     slug: "sand-closed-abaya",
     name: "Sand Closed Abaya",
-    price: 88,
+    price: 62,
+    originalPrice: 88,
     category: "abayas",
     description:
       "A closed-front silhouette in a warm sand tone, tailored for a clean, elevated everyday look with subtle sleeve detailing.",
@@ -93,7 +95,8 @@ export const products: Product[] = [
     id: "8",
     slug: "blush-modal-hijab",
     name: "Blush Modal Hijab",
-    price: 19,
+    price: 12,
+    originalPrice: 19,
     category: "hijabs",
     description:
       "Buttery-soft modal blend in a warm blush tone, breathable enough for all-day wear.",
@@ -108,4 +111,8 @@ export function getProductsByCategory(category: Category) {
 
 export function getProductBySlug(slug: string) {
   return products.find((p) => p.slug === slug);
+}
+
+export function getSaleProducts() {
+  return products.filter((p) => p.originalPrice !== undefined);
 }

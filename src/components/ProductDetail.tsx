@@ -21,6 +21,11 @@ export default function ProductDetail({ product }: { product: Product }) {
           {product.name}
         </h1>
         <p className="mt-2 font-sans text-lg text-espresso/80">
+          {product.originalPrice && (
+            <span className="mr-2 line-through text-espresso/40">
+              £{product.originalPrice.toFixed(2)}
+            </span>
+          )}
           £{product.price.toFixed(2)} GBP
         </p>
         <p className="mt-6 font-sans text-sm leading-relaxed text-espresso/80">

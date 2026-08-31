@@ -8,6 +8,7 @@ import { useCart } from "./CartContext";
 const links = [
   { href: "/abayas", label: "Abayas" },
   { href: "/hijabs", label: "Hijabs" },
+  { href: "/last-chance", label: "Last Chance" },
   { href: "/about", label: "About" },
 ];
 
