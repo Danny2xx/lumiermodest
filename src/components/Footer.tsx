@@ -45,13 +45,13 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex justify-center pb-8">
+      <div className="mx-auto max-w-7xl px-6 pb-10">
         <Image
           src="/brand/logo-transparent.png"
           alt="LumierModest"
-          width={120}
-          height={120}
-          className="h-24 w-24 object-contain"
+          width={160}
+          height={160}
+          className="h-36 w-36 object-contain"
         />
       </div>
 
