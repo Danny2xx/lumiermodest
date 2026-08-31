@@ -30,7 +30,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {lines.length === 0 ? (
             <div className="mt-16 flex flex-col items-center text-center">
-              <p className="font-script text-4xl text-taupe-dark">
+              <p className="font-serif italic tracking-tight text-4xl text-taupe-dark">
                 Your bag is empty
               </p>
               <p className="mt-3 font-sans text-sm text-espresso/60">
@@ -57,7 +57,7 @@ export default function CartDrawer() {
                 >
                   <PlaceholderImage
                     swatch={line.product.swatch}
-                    className="h-24 w-20 flex-shrink-0 rounded"
+                    className="h-24 w-20 flex-shrink-0"
                   />
                   <div className="flex flex-1 flex-col justify-between">
                     <div>

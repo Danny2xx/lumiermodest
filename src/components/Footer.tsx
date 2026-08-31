@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="mb-4 font-serif text-xl text-taupe-dark">
+          <p className="mb-4 font-serif italic text-xl text-taupe-dark">
             Be the first to know — early access, exclusive previews &amp;
             special offers
           </p>

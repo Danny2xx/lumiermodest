@@ -8,7 +8,7 @@ export default function BrandStory() {
         className="absolute inset-0 h-full w-full"
       />
       <div className="absolute inset-0 bg-espresso/30" />
-      <p className="relative z-10 px-8 pb-12 font-script text-3xl text-cream sm:text-4xl">
+      <p className="relative z-10 px-8 pb-12 font-serif italic tracking-tight text-3xl text-cream sm:text-4xl">
         Made with care, made to be remembered.
       </p>
     </section>

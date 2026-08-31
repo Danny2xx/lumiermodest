@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PlaceholderImage from "./PlaceholderImage";
+import Sparkle from "./Sparkle";
 
 export default function Hero() {
   return (
@@ -8,11 +9,13 @@ export default function Hero() {
       <div className="relative h-full">
         <PlaceholderImage swatch={["#8a6a4f", "#5c4530"]} className="h-full" />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-espresso/10 px-4 text-center">
-          <p className="font-sans text-xs tracking-[0.3em] uppercase text-cream">
+          <p className="flex items-center gap-2 font-sans text-xs tracking-[0.3em] uppercase text-cream">
+            <Sparkle className="h-3 w-3" />
             New Season
+            <Sparkle className="h-3 w-3" />
           </p>
-          <h1 className="font-script text-6xl text-cream drop-shadow sm:text-7xl">
-            elevated elegance
+          <h1 className="font-serif italic tracking-tight text-6xl text-cream drop-shadow sm:text-7xl">
+            Elevated Elegance
           </h1>
           <Link
             href="/abayas"

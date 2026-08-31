@@ -1,3 +1,5 @@
+import Flourish from "./Flourish";
+
 export default function CollectionHeader({
   eyebrow,
   title,
@@ -10,11 +12,7 @@ export default function CollectionHeader({
   dark?: boolean;
 }) {
   return (
-    <div
-      className={`mb-10 border-b pb-10 ${
-        dark ? "border-cream/20" : "border-taupe/15"
-      }`}
-    >
+    <div className="mb-10 pb-10">
       <p
         className={`mb-2 font-sans text-xs uppercase tracking-[0.3em] ${
           dark ? "text-gold" : "text-taupe"
@@ -23,19 +21,20 @@ export default function CollectionHeader({
         {eyebrow}
       </p>
       <h1
-        className={`font-script text-5xl sm:text-6xl ${
+        className={`font-serif italic tracking-tight text-5xl sm:text-6xl ${
           dark ? "text-cream" : "text-taupe-dark"
         }`}
       >
         {title}
       </h1>
       <p
-        className={`mt-3 font-serif text-lg ${
+        className={`mt-3 font-sans text-lg ${
           dark ? "text-cream/70" : "text-espresso/70"
         }`}
       >
         {subtitle}
       </p>
+      <Flourish tone={dark ? "cream" : "taupe"} className="mt-8" />
     </div>
   );
 }

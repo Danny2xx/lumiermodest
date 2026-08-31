@@ -13,9 +13,14 @@ export default function CommunityBand() {
   return (
     <section>
       <div className="flex flex-col items-center gap-2 bg-sand px-6 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
-        <p className="font-script text-4xl text-taupe-dark">
-          @lumiermodest
-        </p>
+        <div>
+          <p className="font-sans text-xs uppercase tracking-[0.3em] text-taupe">
+            Follow Along
+          </p>
+          <p className="font-serif italic text-3xl text-taupe-dark">
+            @lumiermodest
+          </p>
+        </div>
         <p className="font-sans text-sm text-espresso/70">
           Join our community — share your looks and tag us @lumiermodest.
         </p>

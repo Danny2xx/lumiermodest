@@ -51,14 +51,16 @@ export default function NewsletterModal() {
 
         {submitted ? (
           <>
-            <p className="font-script text-3xl text-taupe-dark">Thank you</p>
+            <p className="font-serif italic text-3xl text-taupe-dark">
+              Thank you
+            </p>
             <p className="mt-3 font-sans text-sm text-espresso/70">
               Your 10% off code is on its way to your inbox.
             </p>
           </>
         ) : (
           <>
-            <p className="font-script text-4xl text-taupe-dark">
+            <p className="font-serif italic tracking-tight text-4xl text-taupe-dark">
               10% off, for you
             </p>
             <p className="mt-3 font-sans text-sm text-espresso/70">

@@ -20,7 +20,7 @@ export default function CookiePreferences() {
             className="w-full max-w-sm bg-cream p-8 text-left shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="font-script text-3xl text-taupe-dark">
+            <p className="font-serif italic text-3xl text-taupe-dark">
               Cookie preferences
             </p>
             <p className="mt-4 font-sans text-sm leading-relaxed text-espresso/80">
