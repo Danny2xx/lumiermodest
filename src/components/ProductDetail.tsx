@@ -12,10 +12,17 @@ export default function ProductDetail({ product }: { product: Product }) {
 
   return (
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2">
-      <PlaceholderImage
-        swatch={product.swatch}
-        className="aspect-[3/4] w-full"
-      />
+      <div className="relative">
+        <PlaceholderImage
+          swatch={product.swatch}
+          className={`aspect-[3/4] w-full ${!product.inStock ? "opacity-60" : ""}`}
+        />
+        {!product.inStock && (
+          <span className="absolute left-4 top-4 bg-espresso px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-cream">
+            Sold Out
+          </span>
+        )}
+      </div>
       <div>
         <h1 className="font-serif text-4xl text-taupe-dark">
           {product.name}
@@ -53,16 +60,25 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            addItem(product, size);
-            setAdded(true);
-            setTimeout(() => setAdded(false), 1500);
-          }}
-          className="mt-8 w-full bg-taupe-dark py-4 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso sm:w-auto sm:px-12"
-        >
-          {added ? "Added to Bag" : "Add to Bag"}
-        </button>
+        {product.inStock ? (
+          <button
+            onClick={() => {
+              addItem(product, size);
+              setAdded(true);
+              setTimeout(() => setAdded(false), 1500);
+            }}
+            className="mt-8 w-full bg-taupe-dark py-4 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso sm:w-auto sm:px-12"
+          >
+            {added ? "Added to Bag" : "Add to Bag"}
+          </button>
+        ) : (
+          <button
+            disabled
+            className="mt-8 w-full cursor-not-allowed border border-taupe/30 py-4 font-sans text-xs uppercase tracking-[0.18em] text-espresso/40 sm:w-auto sm:px-12"
+          >
+            Sold Out
+          </button>
+        )}
 
         <p className="mt-6 font-sans text-xs text-espresso/50">
           Free UK shipping on orders over £75. See our{" "}

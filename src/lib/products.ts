@@ -10,6 +10,7 @@ export type Product = {
   description: string;
   sizes: string[];
   swatch: [string, string];
+  inStock: boolean;
 };
 
 export const products: Product[] = [
@@ -23,6 +24,7 @@ export const products: Product[] = [
       "A flowing open-front abaya in soft crepe, finished with covered buttons and deep sleeves. Made to layer over your everyday looks.",
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#5c4530", "#3c2c20"],
+    inStock: true,
   },
   {
     id: "2",
@@ -35,6 +37,7 @@ export const products: Product[] = [
       "A closed-front silhouette in a warm sand tone, tailored for a clean, elevated everyday look with subtle sleeve detailing.",
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#e7d7bf", "#c9ad84"],
+    inStock: true,
   },
   {
     id: "3",
@@ -46,6 +49,7 @@ export const products: Product[] = [
       "Our signature occasion piece — fine gold thread embroidery along the cuff and hem, designed for the days worth dressing up for.",
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#b08d57", "#8a6a4f"],
+    inStock: false,
   },
   {
     id: "4",
@@ -57,6 +61,7 @@ export const products: Product[] = [
       "Breathable, easy-care fabric in a versatile taupe shade — the one you'll reach for on repeat.",
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#8a6a4f", "#5c4530"],
+    inStock: true,
   },
   {
     id: "5",
@@ -68,6 +73,7 @@ export const products: Product[] = [
       "Lightweight chiffon with a soft matte finish, generous length for easy draping and secure wrapping.",
     sizes: ["One Size"],
     swatch: ["#faf5ec", "#ece0d1"],
+    inStock: true,
   },
   {
     id: "6",
@@ -79,6 +85,7 @@ export const products: Product[] = [
       "Our best-selling jersey hijab — stretch, no-slip fabric that holds its shape from morning to night.",
     sizes: ["One Size"],
     swatch: ["#6b4a38", "#3c2c20"],
+    inStock: true,
   },
   {
     id: "7",
@@ -90,6 +97,7 @@ export const products: Product[] = [
       "Pre-styled instant hijab with a delicate gold dot print, on for a polished look in seconds.",
     sizes: ["One Size"],
     swatch: ["#ece0d1", "#b08d57"],
+    inStock: true,
   },
   {
     id: "8",
@@ -102,6 +110,7 @@ export const products: Product[] = [
       "Buttery-soft modal blend in a warm blush tone, breathable enough for all-day wear.",
     sizes: ["One Size"],
     swatch: ["#e7d7bf", "#8a6a4f"],
+    inStock: true,
   },
 ];
 

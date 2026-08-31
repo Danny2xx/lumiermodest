@@ -29,9 +29,25 @@ export default function CartDrawer() {
 
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {lines.length === 0 ? (
-            <p className="mt-10 text-center font-sans text-sm text-espresso/60">
-              Your bag is empty.
-            </p>
+            <div className="mt-16 flex flex-col items-center text-center">
+              <p className="font-script text-4xl text-taupe-dark">
+                Your bag is empty
+              </p>
+              <p className="mt-3 font-sans text-sm text-espresso/60">
+                Have an account?{" "}
+                <Link href="/account" onClick={close} className="underline">
+                  Log in
+                </Link>{" "}
+                to check out faster.
+              </p>
+              <Link
+                href="/abayas"
+                onClick={close}
+                className="mt-8 bg-taupe-dark px-8 py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso"
+              >
+                Continue Shopping
+              </Link>
+            </div>
           ) : (
             <ul className="flex flex-col gap-5">
               {lines.map((line) => (

@@ -8,19 +8,22 @@ export default function LastChancePage() {
   const saleProducts = getSaleProducts();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <CollectionHeader
-        eyebrow="Final Stock"
-        title="last chance"
-        subtitle="Final stock, final sale — while it lasts."
-      />
-      {saleProducts.length === 0 ? (
-        <p className="py-16 text-center font-sans text-sm text-espresso/60">
-          Nothing on sale right now — check back soon.
-        </p>
-      ) : (
-        <CategoryProductGrid products={saleProducts} />
-      )}
+    <div className="bg-espresso">
+      <div className="mx-auto max-w-6xl px-6 py-16">
+        <CollectionHeader
+          eyebrow="Final Stock"
+          title="last chance"
+          subtitle="A final opportunity to claim the pieces you loved — before they leave the collection for good."
+          dark
+        />
+        {saleProducts.length === 0 ? (
+          <p className="py-16 text-center font-sans text-sm text-cream/60">
+            Nothing on sale right now — check back soon.
+          </p>
+        ) : (
+          <CategoryProductGrid products={saleProducts} dark />
+        )}
+      </div>
     </div>
   );
 }
