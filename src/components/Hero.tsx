@@ -61,17 +61,17 @@ export default function Hero() {
   const slide = slides[index];
 
   return (
-    <section className="relative grid h-[70vh] min-h-[420px] grid-cols-3">
-      <PlaceholderImage swatch={slide.left} className="h-full" />
+    <section className="relative grid h-[85vh] min-h-[520px] grid-cols-1 md:h-[70vh] md:min-h-[420px] md:grid-cols-3">
+      <PlaceholderImage swatch={slide.left} className="hidden h-full md:block" />
       <div className="relative h-full">
         <PlaceholderImage swatch={slide.center} className="h-full" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-espresso/10 px-4 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-espresso/10 px-6 text-center">
           <p className="flex items-center gap-2 font-sans text-xs tracking-[0.3em] uppercase text-cream">
             <Sparkle className="h-3 w-3" />
             New Season
             <Sparkle className="h-3 w-3" />
           </p>
-          <h1 className="font-serif italic tracking-tight text-6xl text-cream drop-shadow sm:text-7xl">
+          <h1 className="font-serif italic tracking-tight text-5xl text-cream drop-shadow sm:text-6xl md:text-7xl">
             Elevated Elegance
           </h1>
           <Link
@@ -104,7 +104,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <PlaceholderImage swatch={slide.right} className="h-full" />
+      <PlaceholderImage swatch={slide.right} className="hidden h-full md:block" />
     </section>
   );
 }
