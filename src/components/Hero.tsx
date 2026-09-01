@@ -2,30 +2,30 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import PlaceholderImage from "./PlaceholderImage";
+import Image from "next/image";
 import Sparkle from "./Sparkle";
 
 type Slide = {
-  left: [string, string];
-  center: [string, string];
-  right: [string, string];
+  left: string;
+  center: string;
+  right: string;
 };
 
 const slides: Slide[] = [
   {
-    left: ["#e7d7bf", "#c9ad84"],
-    center: ["#8a6a4f", "#5c4530"],
-    right: ["#5c4530", "#3c2c20"],
+    left: "/campaign/espresso-silk.jpg",
+    center: "/campaign/ivory-silk.jpg",
+    right: "/campaign/gold-thread.jpg",
   },
   {
-    left: ["#b08d57", "#8a6a4f"],
-    center: ["#6b4a38", "#3c2c20"],
-    right: ["#ece0d1", "#b08d57"],
+    left: "/campaign/fabric-swatches.jpg",
+    center: "/campaign/gold-silk.jpg",
+    right: "/campaign/espresso-silk.jpg",
   },
   {
-    left: ["#faf5ec", "#ece0d1"],
-    center: ["#5c4530", "#3c2c20"],
-    right: ["#8a6a4f", "#5c4530"],
+    left: "/campaign/gold-silk.jpg",
+    center: "/campaign/fabric-swatches.jpg",
+    right: "/campaign/ivory-silk.jpg",
   },
 ];
 
@@ -62,10 +62,26 @@ export default function Hero() {
 
   return (
     <section className="relative grid h-[85vh] min-h-[520px] grid-cols-1 md:h-[70vh] md:min-h-[420px] md:grid-cols-3">
-      <PlaceholderImage swatch={slide.left} className="hidden h-full md:block" />
+      <div className="relative hidden h-full md:block">
+        <Image
+          src={slide.left}
+          alt=""
+          fill
+          sizes="33vw"
+          priority
+          className="object-cover"
+        />
+      </div>
       <div className="relative h-full">
-        <PlaceholderImage swatch={slide.center} className="h-full" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-espresso/10 px-6 text-center">
+        <Image
+          src={slide.center}
+          alt="LumierModest new season"
+          fill
+          sizes="(min-width: 768px) 34vw, 100vw"
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-espresso/35 px-6 text-center">
           <p className="flex items-center gap-2 font-sans text-xs tracking-[0.3em] uppercase text-cream">
             <Sparkle className="h-3 w-3" />
             New Season
@@ -104,7 +120,16 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <PlaceholderImage swatch={slide.right} className="hidden h-full md:block" />
+      <div className="relative hidden h-full md:block">
+        <Image
+          src={slide.right}
+          alt=""
+          fill
+          sizes="33vw"
+          priority
+          className="object-cover"
+        />
+      </div>
     </section>
   );
 }
