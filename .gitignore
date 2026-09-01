@@ -42,3 +42,6 @@ next-env.d.ts
 
 # third-party reference screenshots (not our IP, not for version control)
 /home/
+
+# raw 4K source image packs — processed versions live in public/products/
+*_4K_Image_Pack.zip

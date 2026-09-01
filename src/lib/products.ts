@@ -13,6 +13,7 @@ export type Product = {
   sizes: string[];
   swatch: [string, string];
   inStock: boolean;
+  images?: string[];
 };
 
 export const products: Product[] = [
@@ -29,6 +30,13 @@ export const products: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#5c4530", "#3c2c20"],
     inStock: true,
+    images: [
+      "/products/espresso-open-abaya/01.jpg",
+      "/products/espresso-open-abaya/02.jpg",
+      "/products/espresso-open-abaya/03.jpg",
+      "/products/espresso-open-abaya/04.jpg",
+      "/products/espresso-open-abaya/05.jpg",
+    ],
   },
   {
     id: "2",
@@ -44,6 +52,13 @@ export const products: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#e7d7bf", "#c9ad84"],
     inStock: true,
+    images: [
+      "/products/sand-closed-abaya/01.jpg",
+      "/products/sand-closed-abaya/02.jpg",
+      "/products/sand-closed-abaya/03.jpg",
+      "/products/sand-closed-abaya/04.jpg",
+      "/products/sand-closed-abaya/05.jpg",
+    ],
   },
   {
     id: "3",
@@ -58,6 +73,13 @@ export const products: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#b08d57", "#8a6a4f"],
     inStock: false,
+    images: [
+      "/products/gilded-occasion-abaya/01.jpg",
+      "/products/gilded-occasion-abaya/02.jpg",
+      "/products/gilded-occasion-abaya/03.jpg",
+      "/products/gilded-occasion-abaya/04.jpg",
+      "/products/gilded-occasion-abaya/05.jpg",
+    ],
   },
   {
     id: "4",
@@ -72,6 +94,13 @@ export const products: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     swatch: ["#8a6a4f", "#5c4530"],
     inStock: true,
+    images: [
+      "/products/taupe-everyday-abaya/01.jpg",
+      "/products/taupe-everyday-abaya/02.jpg",
+      "/products/taupe-everyday-abaya/03.jpg",
+      "/products/taupe-everyday-abaya/04.jpg",
+      "/products/taupe-everyday-abaya/05.jpg",
+    ],
   },
   {
     id: "5",

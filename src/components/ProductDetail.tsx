@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Product } from "@/lib/products";
 import { useCart } from "./CartContext";
-import PlaceholderImage from "./PlaceholderImage";
+import ProductImage from "./ProductImage";
 import Accordion from "./Accordion";
 
-const GALLERY_ANGLES = [150, 100, 200];
+const PLACEHOLDER_ANGLES = [150, 100, 200];
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [size, setSize] = useState(product.sizes[0]);
@@ -14,13 +14,22 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [view, setView] = useState(0);
   const { addItem } = useCart();
 
+  const views =
+    product.images && product.images.length > 0
+      ? product.images.map((src) => ({ src, angle: undefined as number | undefined }))
+      : PLACEHOLDER_ANGLES.map((angle) => ({ src: undefined, angle }));
+
   return (
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2">
       <div>
         <div className="relative">
-          <PlaceholderImage
+          <ProductImage
+            src={views[view].src}
             swatch={product.swatch}
-            angle={GALLERY_ANGLES[view]}
+            angle={views[view].angle}
+            alt={product.name}
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
             className={`aspect-[3/4] w-full ${!product.inStock ? "opacity-60" : ""}`}
           />
           {!product.inStock && (
@@ -30,7 +39,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           )}
         </div>
         <div className="mt-3 flex gap-3">
-          {GALLERY_ANGLES.map((angle, i) => (
+          {views.map((v, i) => (
             <button
               key={i}
               onClick={() => setView(i)}
@@ -39,9 +48,12 @@ export default function ProductDetail({ product }: { product: Product }) {
                 view === i ? "border-taupe-dark" : "border-transparent"
               }`}
             >
-              <PlaceholderImage
+              <ProductImage
+                src={v.src}
                 swatch={product.swatch}
-                angle={angle}
+                angle={v.angle}
+                alt=""
+                sizes="64px"
                 className="h-full w-full"
               />
             </button>

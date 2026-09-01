@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Product } from "@/lib/products";
 import ProductCard from "./ProductCard";
-import PlaceholderImage from "./PlaceholderImage";
+import ProductImage from "./ProductImage";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "name";
 type Availability = "all" | "in-stock" | "sold-out";
@@ -160,7 +160,13 @@ export default function CategoryProductGrid({
                 }`}
               >
                 <div className="relative flex-shrink-0">
-                  <PlaceholderImage swatch={p.swatch} className="h-24 w-20" />
+                  <ProductImage
+                    src={p.images?.[0]}
+                    swatch={p.swatch}
+                    alt={p.name}
+                    sizes="80px"
+                    className="h-24 w-20"
+                  />
                   {!p.inStock && (
                     <span className="absolute left-1 top-1 bg-espresso px-1.5 py-0.5 font-sans text-[8px] uppercase tracking-wide text-cream">
                       Sold Out

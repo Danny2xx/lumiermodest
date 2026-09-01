@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Product } from "@/lib/products";
-import PlaceholderImage from "./PlaceholderImage";
+import ProductImage from "./ProductImage";
 
 export default function ProductCard({
   product,
@@ -12,8 +12,11 @@ export default function ProductCard({
   return (
     <Link href={`/products/${product.slug}`} className="group block">
       <div className="relative">
-        <PlaceholderImage
+        <ProductImage
+          src={product.images?.[0]}
           swatch={product.swatch}
+          alt={product.name}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className={`aspect-[3/4] w-full transition-opacity group-hover:opacity-90 ${
             !product.inStock ? "opacity-60" : ""
           }`}
