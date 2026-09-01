@@ -4,25 +4,51 @@ import { useState } from "react";
 import { Product } from "@/lib/products";
 import { useCart } from "./CartContext";
 import PlaceholderImage from "./PlaceholderImage";
+import Accordion from "./Accordion";
+
+const GALLERY_ANGLES = [150, 100, 200];
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [size, setSize] = useState(product.sizes[0]);
   const [added, setAdded] = useState(false);
+  const [view, setView] = useState(0);
   const { addItem } = useCart();
 
   return (
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2">
-      <div className="relative">
-        <PlaceholderImage
-          swatch={product.swatch}
-          className={`aspect-[3/4] w-full ${!product.inStock ? "opacity-60" : ""}`}
-        />
-        {!product.inStock && (
-          <span className="absolute left-4 top-4 bg-espresso px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-cream">
-            Sold Out
-          </span>
-        )}
+      <div>
+        <div className="relative">
+          <PlaceholderImage
+            swatch={product.swatch}
+            angle={GALLERY_ANGLES[view]}
+            className={`aspect-[3/4] w-full ${!product.inStock ? "opacity-60" : ""}`}
+          />
+          {!product.inStock && (
+            <span className="absolute left-4 top-4 bg-espresso px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-cream">
+              Sold Out
+            </span>
+          )}
+        </div>
+        <div className="mt-3 flex gap-3">
+          {GALLERY_ANGLES.map((angle, i) => (
+            <button
+              key={i}
+              onClick={() => setView(i)}
+              aria-label={`View ${i + 1}`}
+              className={`h-20 w-16 flex-shrink-0 border transition-colors ${
+                view === i ? "border-taupe-dark" : "border-transparent"
+              }`}
+            >
+              <PlaceholderImage
+                swatch={product.swatch}
+                angle={angle}
+                className="h-full w-full"
+              />
+            </button>
+          ))}
+        </div>
       </div>
+
       <div>
         <h1 className="font-serif text-4xl text-taupe-dark">
           {product.name}
@@ -35,9 +61,12 @@ export default function ProductDetail({ product }: { product: Product }) {
           )}
           £{product.price.toFixed(2)} GBP
         </p>
-        <p className="mt-6 font-sans text-sm leading-relaxed text-espresso/80">
-          {product.description}
-        </p>
+
+        {product.category === "abayas" && (
+          <p className="mt-1 font-sans text-xs text-espresso/50">
+            Model is 5&apos;6&quot; (168cm) and wears size M.
+          </p>
+        )}
 
         <div className="mt-8">
           <p className="mb-2 font-sans text-xs uppercase tracking-[0.18em] text-espresso/60">
@@ -91,6 +120,18 @@ export default function ProductDetail({ product }: { product: Product }) {
           </a>
           .
         </p>
+
+        <div className="mt-8">
+          <Accordion title="Description" defaultOpen>
+            <p>{product.description}</p>
+          </Accordion>
+          <Accordion title="Fabric">
+            <p>{product.fabric}</p>
+          </Accordion>
+          <Accordion title="Care">
+            <p>{product.care}</p>
+          </Accordion>
+        </div>
       </div>
     </div>
   );

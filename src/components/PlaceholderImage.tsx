@@ -1,15 +1,17 @@
 export default function PlaceholderImage({
   swatch,
   className = "",
+  angle = 150,
 }: {
   swatch: [string, string];
   className?: string;
+  angle?: number;
 }) {
   return (
     <div
       className={`relative overflow-hidden ${className}`}
       style={{
-        background: `linear-gradient(150deg, ${swatch[0]} 0%, ${swatch[1]} 100%)`,
+        background: `linear-gradient(${angle}deg, ${swatch[0]} 0%, ${swatch[1]} 100%)`,
       }}
     >
       <svg
