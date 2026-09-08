@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import FeaturedGrid from "@/components/FeaturedGrid";
 import BrandStory from "@/components/BrandStory";
+import FAQSection from "@/components/FAQSection";
 import CommunityBand from "@/components/CommunityBand";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <FeaturedGrid />
       <BrandStory />
+      <FAQSection />
       <CommunityBand />
     </>
   );

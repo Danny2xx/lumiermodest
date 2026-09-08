@@ -5,7 +5,11 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/components/CartContext";
 import CartDrawer from "@/components/CartDrawer";
+import { WishlistProvider } from "@/components/WishlistContext";
+import WishlistDrawer from "@/components/WishlistDrawer";
 import NewsletterModal from "@/components/NewsletterModal";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import TrustBadges from "@/components/TrustBadges";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -39,11 +43,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-cream text-espresso">
         <CartProvider>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CartDrawer />
-          <NewsletterModal />
+          <WishlistProvider>
+            <AnnouncementBar />
+            <Nav />
+            <main className="flex-1">{children}</main>
+            <TrustBadges />
+            <Footer />
+            <CartDrawer />
+            <WishlistDrawer />
+            <NewsletterModal />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>
