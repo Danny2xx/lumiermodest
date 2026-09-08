@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useCart } from "./CartContext";
+import { useWishlist } from "./WishlistContext";
 import SearchOverlay from "./SearchOverlay";
 
 const links = [
@@ -31,6 +32,14 @@ function AccountIcon() {
   );
 }
 
+function HeartIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 20.5s-7.5-4.6-10-9.3C.6 8.1 2 4.5 5.4 3.7 8 3.1 10.3 4.4 12 7c1.7-2.6 4-3.9 6.6-3.3 3.4.8 4.8 4.4 3.4 7.5-2.5 4.7-10 9.3-10 9.3Z" />
+    </svg>
+  );
+}
+
 function BagIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -42,6 +51,7 @@ function BagIcon() {
 
 export default function Nav() {
   const { open, count } = useCart();
+  const { open: openWishlist, count: wishlistCount } = useWishlist();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -63,7 +73,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="whitespace-nowrap transition-colors hover:text-taupe"
+                className="relative whitespace-nowrap pb-1 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:text-gold hover:after:w-full"
               >
                 {l.label}
               </Link>
@@ -89,21 +99,33 @@ export default function Nav() {
           <button
             onClick={() => setSearchOpen(true)}
             aria-label="Search"
-            className="transition-colors hover:text-taupe"
+            className="transition-colors hover:text-gold"
           >
             <SearchIcon />
           </button>
           <Link
             href="/account"
             aria-label="Account"
-            className="transition-colors hover:text-taupe"
+            className="transition-colors hover:text-gold"
           >
             <AccountIcon />
           </Link>
           <button
+            onClick={openWishlist}
+            aria-label="Open wishlist"
+            className="relative transition-colors hover:text-gold"
+          >
+            <HeartIcon />
+            {wishlistCount > 0 && (
+              <span className="absolute -right-2 -top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-taupe-dark text-[10px] text-cream">
+                {wishlistCount}
+              </span>
+            )}
+          </button>
+          <button
             onClick={open}
             aria-label="Open cart"
-            className="relative transition-colors hover:text-taupe"
+            className="relative transition-colors hover:text-gold"
           >
             <BagIcon />
             {count > 0 && (

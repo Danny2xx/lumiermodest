@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Product } from "@/lib/products";
 import ProductImage from "./ProductImage";
+import WishlistButton from "./WishlistButton";
 
 export default function ProductCard({
   product,
@@ -17,7 +18,8 @@ export default function ProductCard({
           swatch={product.swatch}
           alt={product.name}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className={`aspect-[3/4] w-full transition-opacity group-hover:opacity-90 ${
+          zoom
+          className={`aspect-[3/4] w-full ${
             !product.inStock ? "opacity-60" : ""
           }`}
         />
@@ -26,6 +28,7 @@ export default function ProductCard({
             Sold Out
           </span>
         )}
+        <WishlistButton slug={product.slug} className="absolute right-3 top-3" />
       </div>
       <div className="mt-3 text-center">
         <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>

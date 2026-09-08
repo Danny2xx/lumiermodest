@@ -89,7 +89,7 @@ export default function NewsletterModal() {
               />
               <button
                 type="submit"
-                className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso"
+                className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso"
               >
                 Subscribe
               </button>

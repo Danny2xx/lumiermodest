@@ -43,7 +43,7 @@ export default function CartDrawer() {
               <Link
                 href="/abayas"
                 onClick={close}
-                className="mt-8 bg-taupe-dark px-8 py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso"
+                className="mt-8 bg-taupe-dark px-8 py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso"
               >
                 Continue Shopping
               </Link>
@@ -122,7 +122,7 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={close}
-              className="block w-full bg-taupe-dark py-3 text-center font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso"
+              className="block w-full bg-taupe-dark py-3 text-center font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso"
             >
               Checkout
             </Link>

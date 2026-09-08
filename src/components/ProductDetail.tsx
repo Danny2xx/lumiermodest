@@ -5,6 +5,7 @@ import { Product } from "@/lib/products";
 import { useCart } from "./CartContext";
 import ProductImage from "./ProductImage";
 import Accordion from "./Accordion";
+import WishlistButton from "./WishlistButton";
 
 const PLACEHOLDER_ANGLES = [150, 100, 200];
 
@@ -101,25 +102,32 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
 
-        {product.inStock ? (
-          <button
-            onClick={() => {
-              addItem(product, size);
-              setAdded(true);
-              setTimeout(() => setAdded(false), 1500);
-            }}
-            className="mt-8 w-full bg-taupe-dark py-4 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-colors hover:bg-espresso sm:w-auto sm:px-12"
-          >
-            {added ? "Added to Bag" : "Add to Bag"}
-          </button>
-        ) : (
-          <button
-            disabled
-            className="mt-8 w-full cursor-not-allowed border border-taupe/30 py-4 font-sans text-xs uppercase tracking-[0.18em] text-espresso/40 sm:w-auto sm:px-12"
-          >
-            Sold Out
-          </button>
-        )}
+        <div className="mt-8 flex items-center gap-3">
+          {product.inStock ? (
+            <button
+              onClick={() => {
+                addItem(product, size);
+                setAdded(true);
+                setTimeout(() => setAdded(false), 1500);
+              }}
+              className="flex-1 bg-taupe-dark py-4 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso sm:flex-none sm:px-12"
+            >
+              {added ? "Added to Bag" : "Add to Bag"}
+            </button>
+          ) : (
+            <button
+              disabled
+              className="flex-1 cursor-not-allowed border border-taupe/30 py-4 font-sans text-xs uppercase tracking-[0.18em] text-espresso/40 sm:flex-none sm:px-12"
+            >
+              Sold Out
+            </button>
+          )}
+          <WishlistButton
+            slug={product.slug}
+            variant="bare"
+            className="h-[52px] w-[52px] flex-shrink-0 border border-taupe/30"
+          />
+        </div>
 
         <p className="mt-6 font-sans text-xs text-espresso/50">
           Free UK shipping on orders over £75. See our{" "}

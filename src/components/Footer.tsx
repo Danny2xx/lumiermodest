@@ -25,19 +25,19 @@ export default function Footer() {
     <footer className="border-t border-taupe/15 bg-sand">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2">
         <div className="flex flex-col gap-3 font-sans text-sm uppercase tracking-[0.14em] text-espresso/80">
-          <Link href="/about" className="hover:text-taupe">
+          <Link href="/about" className="transition-colors hover:text-gold">
             About
           </Link>
-          <Link href="/sizing" className="hover:text-taupe">
+          <Link href="/sizing" className="transition-colors hover:text-gold">
             Sizing Guide
           </Link>
-          <Link href="/shipping" className="hover:text-taupe">
+          <Link href="/shipping" className="transition-colors hover:text-gold">
             Shipping Policy
           </Link>
-          <Link href="/returns" className="hover:text-taupe">
+          <Link href="/returns" className="transition-colors hover:text-gold">
             Refund Policy
           </Link>
-          <Link href="/contact" className="hover:text-taupe">
+          <Link href="/contact" className="transition-colors hover:text-gold">
             Contact
           </Link>
         </div>
@@ -55,7 +55,7 @@ export default function Footer() {
             />
             <button
               type="submit"
-              className="font-sans text-sm text-taupe-dark"
+              className="font-sans text-sm text-taupe-dark transition-transform duration-200 hover:translate-x-1 hover:text-gold"
               aria-label="Subscribe"
             >
               →
@@ -78,19 +78,19 @@ export default function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 font-sans text-xs text-espresso/60 md:flex-row">
           <p>© {new Date().getFullYear()} LumierModest. All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
-            <Link href="/privacy" className="hover:text-taupe">
+            <Link href="/privacy" className="transition-colors hover:text-gold">
               Privacy policy
             </Link>
-            <Link href="/returns" className="hover:text-taupe">
+            <Link href="/returns" className="transition-colors hover:text-gold">
               Refund policy
             </Link>
-            <Link href="/terms" className="hover:text-taupe">
+            <Link href="/terms" className="transition-colors hover:text-gold">
               Terms of service
             </Link>
-            <Link href="/shipping" className="hover:text-taupe">
+            <Link href="/shipping" className="transition-colors hover:text-gold">
               Shipping policy
             </Link>
-            <Link href="/contact" className="hover:text-taupe">
+            <Link href="/contact" className="transition-colors hover:text-gold">
               Contact information
             </Link>
             <CookiePreferences />
@@ -101,7 +101,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-taupe"
+              className="transition-colors hover:text-gold"
             >
               <InstagramIcon />
             </a>
@@ -110,7 +110,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="hover:text-taupe"
+              className="transition-colors hover:text-gold"
             >
               <TikTokIcon />
             </a>
