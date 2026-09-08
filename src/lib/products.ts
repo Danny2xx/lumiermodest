@@ -115,6 +115,14 @@ export const products: Product[] = [
     sizes: ["One Size"],
     swatch: ["#faf5ec", "#ece0d1"],
     inStock: true,
+    images: [
+      "/products/ivory-chiffon-hijab/01.jpg",
+      "/products/ivory-chiffon-hijab/02.jpg",
+      "/products/ivory-chiffon-hijab/03.jpg",
+      "/products/ivory-chiffon-hijab/04.jpg",
+      "/products/ivory-chiffon-hijab/05.jpg",
+      "/products/ivory-chiffon-hijab/06.jpg",
+    ],
   },
   {
     id: "6",
@@ -129,6 +137,15 @@ export const products: Product[] = [
     sizes: ["One Size"],
     swatch: ["#6b4a38", "#3c2c20"],
     inStock: true,
+    images: [
+      "/products/cocoa-jersey-hijab/01.jpg",
+      "/products/cocoa-jersey-hijab/02.jpg",
+      "/products/cocoa-jersey-hijab/03.jpg",
+      "/products/cocoa-jersey-hijab/04.jpg",
+      "/products/cocoa-jersey-hijab/05.jpg",
+      "/products/cocoa-jersey-hijab/06.jpg",
+      "/products/cocoa-jersey-hijab/07.jpg",
+    ],
   },
   {
     id: "7",
@@ -143,6 +160,15 @@ export const products: Product[] = [
     sizes: ["One Size"],
     swatch: ["#ece0d1", "#b08d57"],
     inStock: true,
+    images: [
+      "/products/gold-dot-instant-hijab/01.jpg",
+      "/products/gold-dot-instant-hijab/02.jpg",
+      "/products/gold-dot-instant-hijab/03.jpg",
+      "/products/gold-dot-instant-hijab/04.jpg",
+      "/products/gold-dot-instant-hijab/05.jpg",
+      "/products/gold-dot-instant-hijab/06.jpg",
+      "/products/gold-dot-instant-hijab/07.jpg",
+    ],
   },
   {
     id: "8",
@@ -158,6 +184,14 @@ export const products: Product[] = [
     sizes: ["One Size"],
     swatch: ["#e7d7bf", "#8a6a4f"],
     inStock: true,
+    images: [
+      "/products/blush-modal-hijab/01.jpg",
+      "/products/blush-modal-hijab/02.jpg",
+      "/products/blush-modal-hijab/03.jpg",
+      "/products/blush-modal-hijab/04.jpg",
+      "/products/blush-modal-hijab/05.jpg",
+      "/products/blush-modal-hijab/06.jpg",
+    ],
   },
 ];
 

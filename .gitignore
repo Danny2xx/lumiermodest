@@ -45,3 +45,4 @@ next-env.d.ts
 
 # raw 4K source image packs — processed versions live in public/products/
 *_4K_Image_Pack.zip
+/LM_Hijab_Collection_4K_Updated/
