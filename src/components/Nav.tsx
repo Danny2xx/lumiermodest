@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
 import SearchOverlay from "./SearchOverlay";
+import Flourish from "./Flourish";
 
 const links = [
   { href: "/abayas", label: "Abayas" },
@@ -54,20 +55,53 @@ export default function Nav() {
   const { open: openWishlist, count: wishlistCount } = useWishlist();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-taupe/15 bg-cream/95 backdrop-blur">
-      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 py-4">
+    <header className="sticky top-0 z-40 border-b border-taupe/15">
+      <button
+        className="absolute left-6 top-1/2 z-50 flex h-4 w-6 -translate-y-1/2 flex-col justify-between md:hidden"
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label="Toggle menu"
+        aria-expanded={menuOpen}
+      >
+        <span
+          className={`block h-px w-6 transition-colors duration-300 ${menuOpen ? "bg-cream" : "bg-espresso"} transition-transform duration-300 ${
+            menuOpen ? "translate-y-[7.5px] rotate-45" : ""
+          }`}
+        />
+        <span
+          className={`block h-px w-6 transition-colors duration-300 ${menuOpen ? "bg-cream" : "bg-espresso"} transition-opacity duration-200 ${
+            menuOpen ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <span
+          className={`block h-px w-6 transition-colors duration-300 ${menuOpen ? "bg-cream" : "bg-espresso"} transition-transform duration-300 ${
+            menuOpen ? "-translate-y-[7.5px] -rotate-45" : ""
+          }`}
+        />
+      </button>
+      <div className="bg-cream/95 backdrop-blur">
+      <div
+        className={`mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 transition-[padding] duration-300 ${
+          scrolled ? "py-2" : "py-3"
+        }`}
+      >
         <div className="flex items-center gap-6">
-          <button
-            className="flex flex-col gap-1.5 md:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            <span className="block h-px w-5 bg-espresso" />
-            <span className="block h-px w-5 bg-espresso" />
-          </button>
-
           <nav className="hidden gap-6 font-sans text-xs tracking-[0.18em] uppercase text-espresso md:flex">
             {links.map((l) => (
               <Link
@@ -87,10 +121,16 @@ export default function Nav() {
             alt="LumierModest"
             width={40}
             height={40}
-            className="h-10 w-10 object-contain"
+            className={`object-contain transition-all duration-300 ${
+              scrolled ? "h-8 w-8" : "h-10 w-10"
+            }`}
             priority
           />
-          <span className="hidden font-serif text-xl text-taupe-dark sm:block">
+          <span
+            className={`hidden font-serif text-taupe-dark transition-all duration-300 sm:block ${
+              scrolled ? "text-lg" : "text-xl"
+            }`}
+          >
             LumierModest
           </span>
         </Link>
@@ -136,20 +176,89 @@ export default function Nav() {
           </button>
         </div>
       </div>
+      </div>
 
-      {menuOpen && (
-        <nav className="flex flex-col gap-4 border-t border-taupe/15 px-6 py-4 font-sans text-sm uppercase tracking-[0.14em] md:hidden">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMenuOpen(false)}
+      {/* Full-screen mobile menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-espresso transition-opacity duration-500 md:hidden ${
+          menuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div className="flex h-full flex-col items-center justify-center gap-8 px-6">
+          <nav className="flex flex-col items-center gap-6">
+            {links.map((l, i) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                className={`font-serif italic text-4xl text-cream transition-all duration-500 hover:text-gold ${
+                  menuOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0"
+                }`}
+                style={{ transitionDelay: menuOpen ? `${150 + i * 70}ms` : "0ms" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            className={`transition-all duration-500 ${
+              menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+            }`}
+            style={{ transitionDelay: menuOpen ? "430ms" : "0ms" }}
+          >
+            <Flourish tone="cream" />
+          </div>
+
+          <div
+            className={`flex items-center gap-8 text-cream transition-all duration-500 ${
+              menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+            }`}
+            style={{ transitionDelay: menuOpen ? "500ms" : "0ms" }}
+          >
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                setSearchOpen(true);
+              }}
+              aria-label="Search"
+              className="transition-colors hover:text-gold"
             >
-              {l.label}
+              <SearchIcon />
+            </button>
+            <Link
+              href="/account"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Account"
+              className="transition-colors hover:text-gold"
+            >
+              <AccountIcon />
             </Link>
-          ))}
-        </nav>
-      )}
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                openWishlist();
+              }}
+              aria-label="Open wishlist"
+              className="transition-colors hover:text-gold"
+            >
+              <HeartIcon />
+            </button>
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                open();
+              }}
+              aria-label="Open cart"
+              className="transition-colors hover:text-gold"
+            >
+              <BagIcon />
+            </button>
+          </div>
+        </div>
+      </div>
 
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
