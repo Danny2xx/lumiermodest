@@ -1,18 +1,19 @@
 "use client";
 
+import { Product } from "@/lib/products";
 import { useWishlist } from "./WishlistContext";
 
 export default function WishlistButton({
-  slug,
+  product,
   className = "",
   variant = "pill",
 }: {
-  slug: string;
+  product: Product;
   className?: string;
   variant?: "pill" | "bare";
 }) {
   const { isSaved, toggle } = useWishlist();
-  const saved = isSaved(slug);
+  const saved = isSaved(product.slug);
 
   const base =
     variant === "pill"
@@ -24,7 +25,7 @@ export default function WishlistButton({
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggle(slug);
+        toggle(product);
       }}
       aria-label={saved ? "Remove from wishlist" : "Save to wishlist"}
       aria-pressed={saved}

@@ -1,8 +1,9 @@
-import { products } from "@/lib/products";
+import { getAllProducts } from "@/lib/products";
 import ProductCard from "./ProductCard";
 import Flourish from "./Flourish";
 
-export default function FeaturedGrid() {
+export default async function FeaturedGrid() {
+  const products = await getAllProducts();
   const featured = products.slice(0, 3);
 
   return (

@@ -123,7 +123,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             </button>
           )}
           <WishlistButton
-            slug={product.slug}
+            product={product}
             variant="bare"
             className="h-[52px] w-[52px] flex-shrink-0 border border-taupe/30"
           />

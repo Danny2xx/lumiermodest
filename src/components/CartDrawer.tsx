@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "./CartContext";
-import PlaceholderImage from "./PlaceholderImage";
+import ProductImage from "./ProductImage";
 
 export default function CartDrawer() {
   const { isOpen, close, lines, removeItem, updateQty, subtotal } = useCart();
@@ -55,8 +55,11 @@ export default function CartDrawer() {
                   key={`${line.product.slug}-${line.size}`}
                   className="flex gap-4"
                 >
-                  <PlaceholderImage
+                  <ProductImage
+                    src={line.product.images?.[0]}
                     swatch={line.product.swatch}
+                    alt={line.product.name}
+                    sizes="80px"
                     className="h-24 w-20 flex-shrink-0"
                   />
                   <div className="flex flex-1 flex-col justify-between">

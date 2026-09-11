@@ -4,19 +4,17 @@ import {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
   ReactNode,
 } from "react";
-import { Product, getProductBySlug } from "@/lib/products";
+import { Product } from "@/lib/products";
 
 type WishlistContextValue = {
-  slugs: string[];
   products: Product[];
   isOpen: boolean;
   open: () => void;
   close: () => void;
-  toggle: (slug: string) => void;
+  toggle: (product: Product) => void;
   isSaved: (slug: string) => boolean;
   remove: (slug: string) => void;
   count: number;
@@ -26,14 +24,14 @@ const WishlistContext = createContext<WishlistContextValue | null>(null);
 const STORAGE_KEY = "lumiermodest-wishlist";
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const [slugs, setSlugs] = useState<string[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setSlugs(JSON.parse(raw));
+      if (raw) setProducts(JSON.parse(raw));
     } catch {
       // ignore corrupted storage
     }
@@ -42,30 +40,26 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(slugs));
-  }, [slugs, hydrated]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  }, [products, hydrated]);
 
-  const toggle = (slug: string) => {
-    setSlugs((prev) =>
-      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+  const toggle = (product: Product) => {
+    setProducts((prev) =>
+      prev.some((p) => p.slug === product.slug)
+        ? prev.filter((p) => p.slug !== product.slug)
+        : [...prev, product]
     );
   };
 
   const remove = (slug: string) => {
-    setSlugs((prev) => prev.filter((s) => s !== slug));
+    setProducts((prev) => prev.filter((p) => p.slug !== slug));
   };
 
-  const isSaved = (slug: string) => slugs.includes(slug);
-
-  const products = useMemo(
-    () => slugs.map((s) => getProductBySlug(s)).filter((p): p is Product => Boolean(p)),
-    [slugs]
-  );
+  const isSaved = (slug: string) => products.some((p) => p.slug === slug);
 
   return (
     <WishlistContext.Provider
       value={{
-        slugs,
         products,
         isOpen,
         open: () => setIsOpen(true),

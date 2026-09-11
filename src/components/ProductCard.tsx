@@ -28,7 +28,7 @@ export default function ProductCard({
             Sold Out
           </span>
         )}
-        <WishlistButton slug={product.slug} className="absolute right-3 top-3" />
+        <WishlistButton product={product} className="absolute right-3 top-3" />
       </div>
       <div className="mt-3 text-center">
         <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>

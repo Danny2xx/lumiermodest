@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { products } from "@/lib/products";
+
+type SearchResult = { id: string; slug: string; name: string; price: number };
 
 export default function SearchOverlay({
   open,
@@ -12,6 +13,8 @@ export default function SearchOverlay({
   onClose: () => void;
 }) {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -20,16 +23,31 @@ export default function SearchOverlay({
       return () => clearTimeout(t);
     }
     setQuery("");
+    setResults([]);
   }, [open]);
 
-  const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    return products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-    );
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) {
+      setResults([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const controller = new AbortController();
+    const t = setTimeout(() => {
+      fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: controller.signal })
+        .then((res) => res.json())
+        .then((data) => setResults(data.results ?? []))
+        .catch((err) => {
+          if (err.name !== "AbortError") setResults([]);
+        })
+        .finally(() => setLoading(false));
+    }, 250);
+    return () => {
+      clearTimeout(t);
+      controller.abort();
+    };
   }, [query]);
 
   return (
@@ -65,7 +83,11 @@ export default function SearchOverlay({
 
         {query.trim() && (
           <ul className="mt-4 max-h-80 overflow-y-auto">
-            {results.length === 0 ? (
+            {loading ? (
+              <p className="py-4 font-sans text-sm text-espresso/60">
+                Searching…
+              </p>
+            ) : results.length === 0 ? (
               <p className="py-4 font-sans text-sm text-espresso/60">
                 No results for &quot;{query}&quot;.
               </p>

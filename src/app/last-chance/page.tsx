@@ -3,9 +3,10 @@ import CollectionHeader from "@/components/CollectionHeader";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
 
 export const metadata = { title: "Last Chance — LumierModest" };
+export const revalidate = 60;
 
-export default function LastChancePage() {
-  const saleProducts = getSaleProducts();
+export default async function LastChancePage() {
+  const saleProducts = await getSaleProducts();
 
   return (
     <div className="bg-espresso">
