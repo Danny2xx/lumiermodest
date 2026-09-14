@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { auth } from "@/lib/auth/server";
 import Flourish from "@/components/Flourish";
 import { signOut } from "./actions";
@@ -31,6 +32,17 @@ export default async function AccountPage() {
               connected, your past orders will appear here.
             </p>
           </div>
+
+          {user.role === "admin" && (
+            <div className="mt-6 flex justify-center">
+              <Link
+                href="/admin"
+                className="border border-gold px-8 py-3 font-sans text-xs uppercase tracking-[0.18em] text-gold transition-all duration-200 hover:scale-[1.02] hover:bg-gold hover:text-cream"
+              >
+                Manage Store
+              </Link>
+            </div>
+          )}
 
           <form action={signOut} className="mt-8 flex justify-center">
             <button
