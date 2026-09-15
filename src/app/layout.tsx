@@ -10,6 +10,7 @@ import WishlistDrawer from "@/components/WishlistDrawer";
 import NewsletterModal from "@/components/NewsletterModal";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import TrustBadges from "@/components/TrustBadges";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { getAllCategories } from "@/lib/categories";
 
 const cormorant = Cormorant_Garamond({
@@ -76,6 +77,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             <CartDrawer />
             <WishlistDrawer />
             <NewsletterModal />
+            <WhatsAppButton />
           </WishlistProvider>
         </CartProvider>
       </body>

@@ -1,6 +1,7 @@
 import BrandStamp from "@/components/BrandStamp";
 import ContactForm from "@/components/ContactForm";
 import Flourish from "@/components/Flourish";
+import { whatsAppLink } from "@/components/WhatsAppButton";
 
 export const metadata = { title: "Contact — LumierModest" };
 
@@ -21,6 +22,17 @@ export default function ContactPage() {
 
       <div className="mt-6 font-sans text-sm text-espresso/80">
         <p>Email us: hello@lumiermodest.com</p>
+        <p>
+          WhatsApp:{" "}
+          <a
+            href={whatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gold"
+          >
+            Message us
+          </a>
+        </p>
         <p>Instagram: @lumiermodest</p>
         <p>TikTok: @lumier.modest</p>
       </div>
