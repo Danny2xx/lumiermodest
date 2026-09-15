@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useActionState } from "react";
+import { subscribeToNewsletter } from "@/lib/newsletter";
 
 const STORAGE_KEY = "lumiermodest-newsletter-seen";
 
 export default function NewsletterModal() {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [state, formAction, isPending] = useActionState(
+    subscribeToNewsletter.bind(null, "modal"),
+    null
+  );
+  const submitted = state && "success" in state;
 
   useEffect(() => {
     let seen = true;
@@ -55,7 +59,8 @@ export default function NewsletterModal() {
               Thank you
             </p>
             <p className="mt-3 font-sans text-sm text-espresso/70">
-              Your 10% off code is on its way to your inbox.
+              You&apos;re on the list — early access and offers will land in
+              your inbox.
             </p>
           </>
         ) : (
@@ -68,9 +73,8 @@ export default function NewsletterModal() {
               exclusive offers.
             </p>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSubmitted(true);
+              action={(formData) => {
+                formAction(formData);
                 try {
                   localStorage.setItem(STORAGE_KEY, "true");
                 } catch {
@@ -81,17 +85,20 @@ export default function NewsletterModal() {
             >
               <input
                 type="email"
+                name="email"
                 required
                 placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 className="border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm text-center focus:outline-none focus:border-taupe"
               />
+              {state?.error && (
+                <p className="font-sans text-xs text-red-700">{state.error}</p>
+              )}
               <button
                 type="submit"
-                className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso"
+                disabled={isPending}
+                className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso disabled:opacity-60"
               >
-                Subscribe
+                {isPending ? "Submitting…" : "Subscribe"}
               </button>
             </form>
           </>

@@ -18,6 +18,13 @@ enum OrderStatus {
   cancelled
 }
 
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String
+  createdAt DateTime @default(now())
+}
+
 model Product {
   id            String    @id @default(cuid())
   slug          String    @unique

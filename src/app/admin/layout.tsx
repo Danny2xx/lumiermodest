@@ -20,12 +20,17 @@ export default async function AdminLayout({
           >
             LumierModest — Admin
           </Link>
-          <Link
-            href="/"
-            className="font-sans text-xs uppercase tracking-[0.14em] text-espresso/70 hover:text-gold"
-          >
-            View store
-          </Link>
+          <div className="flex items-center gap-6 font-sans text-xs uppercase tracking-[0.14em] text-espresso/70">
+            <Link href="/admin" className="hover:text-gold">
+              Products
+            </Link>
+            <Link href="/admin/subscribers" className="hover:text-gold">
+              Subscribers
+            </Link>
+            <Link href="/" className="hover:text-gold">
+              View store
+            </Link>
+          </div>
         </div>
       </div>
       <div className="mx-auto max-w-5xl px-6 py-10">{children}</div>

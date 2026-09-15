@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CookiePreferences from "./CookiePreferences";
+import FooterNewsletterForm from "./FooterNewsletterForm";
 
 function InstagramIcon() {
   return (
@@ -47,20 +48,7 @@ export default function Footer() {
             Be the first to know — early access, exclusive previews &amp;
             special offers
           </p>
-          <form className="flex border-b border-taupe/40 pb-2">
-            <input
-              type="email"
-              placeholder="Email address"
-              className="flex-1 bg-transparent font-sans text-sm text-espresso placeholder:text-espresso/50 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="font-sans text-sm text-taupe-dark transition-transform duration-200 hover:translate-x-1 hover:text-gold"
-              aria-label="Subscribe"
-            >
-              →
-            </button>
-          </form>
+          <FooterNewsletterForm />
         </div>
       </div>
 
