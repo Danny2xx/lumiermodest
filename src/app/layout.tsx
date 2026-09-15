@@ -30,9 +30,25 @@ const parisienne = Parisienne({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lumiermodest.com"),
   title: "LumierModest — Timeless Modesty. Elevated Elegance.",
   description:
     "Abayas and hijabs designed in the UK for timeless modesty and elevated elegance.",
+  openGraph: {
+    title: "LumierModest — Timeless Modesty. Elevated Elegance.",
+    description:
+      "Abayas and hijabs designed in the UK for timeless modesty and elevated elegance.",
+    url: "https://lumiermodest.com",
+    siteName: "LumierModest",
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LumierModest — Timeless Modesty. Elevated Elegance.",
+    description:
+      "Abayas and hijabs designed in the UK for timeless modesty and elevated elegance.",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

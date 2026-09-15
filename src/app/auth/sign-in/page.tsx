@@ -36,6 +36,12 @@ export default function SignInPage() {
           required
           className={inputClass}
         />
+        <Link
+          href="/auth/forgot-password"
+          className="-mt-2 self-end font-sans text-xs text-espresso/60 underline hover:text-gold"
+        >
+          Forgot password?
+        </Link>
         {state?.error && (
           <p className="font-sans text-xs text-red-700">{state.error}</p>
         )}

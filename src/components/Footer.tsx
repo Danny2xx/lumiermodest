@@ -106,7 +106,7 @@ export default function Footer() {
               <InstagramIcon />
             </a>
             <a
-              href="https://tiktok.com/@lumiermodest"
+              href="https://www.tiktok.com/@lumier.modest"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"

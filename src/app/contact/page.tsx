@@ -22,7 +22,7 @@ export default function ContactPage() {
       <div className="mt-6 font-sans text-sm text-espresso/80">
         <p>Email us: hello@lumiermodest.com</p>
         <p>Instagram: @lumiermodest</p>
-        <p>TikTok: @lumiermodest</p>
+        <p>TikTok: @lumier.modest</p>
       </div>
 
       <h2 className="mt-14 font-serif italic text-3xl text-taupe">
