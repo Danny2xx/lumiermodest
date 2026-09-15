@@ -8,13 +8,6 @@ import { useWishlist } from "./WishlistContext";
 import SearchOverlay from "./SearchOverlay";
 import Flourish from "./Flourish";
 
-const links = [
-  { href: "/abayas", label: "Abayas" },
-  { href: "/hijabs", label: "Hijabs" },
-  { href: "/last-chance", label: "Last Chance" },
-  { href: "/about", label: "About" },
-];
-
 function SearchIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -50,7 +43,11 @@ function BagIcon() {
   );
 }
 
-export default function Nav() {
+export default function Nav({
+  links,
+}: {
+  links: { href: string; label: string }[];
+}) {
   const { open, count } = useCart();
   const { open: openWishlist, count: wishlistCount } = useWishlist();
   const [menuOpen, setMenuOpen] = useState(false);

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-
-const CATEGORIES = ["abayas", "hijabs"] as const;
+import { getAllCategories } from "@/lib/categories";
 
 export async function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams.get("q")?.trim() ?? "";
@@ -10,14 +9,19 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ results: [] });
   }
 
-  const matchedCategory = CATEGORIES.find((c) => c.includes(q.toLowerCase()));
+  const categories = await getAllCategories();
+  const qLower = q.toLowerCase();
+  const matchedCategory = categories.find(
+    (c) =>
+      c.name.toLowerCase().includes(qLower) || c.slug.includes(qLower)
+  );
 
   const rows = await prisma.product.findMany({
     where: matchedCategory
       ? {
           OR: [
             { name: { contains: q, mode: "insensitive" } },
-            { category: matchedCategory },
+            { category: matchedCategory.slug },
           ],
         }
       : { name: { contains: q, mode: "insensitive" } },

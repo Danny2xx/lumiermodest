@@ -6,11 +6,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Category {
-  abayas
-  hijabs
-}
-
 enum OrderStatus {
   pending
   paid
@@ -25,13 +20,22 @@ model Subscriber {
   createdAt DateTime @default(now())
 }
 
+model Category {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  subtitle  String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
 model Product {
   id            String    @id @default(cuid())
   slug          String    @unique
   name          String
   price         Decimal   @db.Decimal(10, 2)
   originalPrice Decimal?  @db.Decimal(10, 2)
-  category      Category
+  category      String
   description   String
   fabric        String
   care          String

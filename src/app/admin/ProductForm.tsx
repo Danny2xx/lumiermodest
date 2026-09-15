@@ -3,6 +3,7 @@
 import { useActionState, useState, useRef } from "react";
 import Image from "next/image";
 import type { Product } from "@prisma/client";
+import type { Category } from "@/lib/categories";
 import { uploadProductImage, deleteProductImage } from "./actions";
 
 const inputClass =
@@ -12,10 +13,12 @@ const labelClass =
 
 export default function ProductForm({
   product,
+  categories,
   action,
   submitLabel,
 }: {
   product?: Product;
+  categories: Category[];
   action: (
     state: { error: string } | null,
     formData: FormData
@@ -112,11 +115,14 @@ export default function ProductForm({
           <select
             name="category"
             required
-            defaultValue={product?.category ?? "abayas"}
+            defaultValue={product?.category ?? categories[0]?.slug}
             className={inputClass}
           >
-            <option value="abayas">Abayas</option>
-            <option value="hijabs">Hijabs</option>
+            {categories.map((c) => (
+              <option key={c.slug} value={c.slug}>
+                {c.name}
+              </option>
+            ))}
           </select>
         </div>
         <div>

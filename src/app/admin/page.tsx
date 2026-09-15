@@ -3,13 +3,16 @@ import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { deleteProduct } from "./actions";
 import DeleteButton from "./DeleteButton";
+import { getAllCategories } from "@/lib/categories";
 
 export const metadata = { title: "Admin — LumierModest" };
 
 export default async function AdminDashboard() {
-  const products = await prisma.product.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const [products, categories] = await Promise.all([
+    prisma.product.findMany({ orderBy: { createdAt: "desc" } }),
+    getAllCategories(),
+  ]);
+  const categoryName = new Map(categories.map((c) => [c.slug, c.name]));
 
   return (
     <div>
@@ -45,7 +48,7 @@ export default async function AdminDashboard() {
             <div className="flex-1">
               <p className="font-serif text-lg text-espresso">{p.name}</p>
               <p className="font-sans text-xs uppercase tracking-wide text-espresso/50">
-                {p.category} · £{p.price.toString()}
+                {categoryName.get(p.category) ?? p.category} · £{p.price.toString()}
                 {p.originalPrice ? ` (was £${p.originalPrice.toString()})` : ""}
                 {!p.inStock ? " · Sold out" : ""}
               </p>

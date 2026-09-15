@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { put, del } from "@vercel/blob";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth/admin";
+import { getAllCategories } from "@/lib/categories";
 
 function slugify(name: string) {
   return name
@@ -14,10 +15,10 @@ function slugify(name: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-function revalidateStorefront(slug?: string) {
+async function revalidateStorefront(slug?: string) {
   revalidatePath("/");
-  revalidatePath("/abayas");
-  revalidatePath("/hijabs");
+  const categories = await getAllCategories();
+  for (const c of categories) revalidatePath(`/${c.slug}`);
   revalidatePath("/last-chance");
   if (slug) revalidatePath(`/products/${slug}`);
 }
@@ -98,6 +99,11 @@ export async function createProduct(
     return { error: "Add at least one photo." };
   }
 
+  const categories = await getAllCategories();
+  if (!categories.some((c) => c.slug === data.category)) {
+    return { error: "Please choose a valid category." };
+  }
+
   const slug = slugify(data.name);
   const existing = await prisma.product.findUnique({ where: { slug } });
   if (existing) {
@@ -110,7 +116,7 @@ export async function createProduct(
       name: data.name,
       price: data.price,
       originalPrice: data.originalPrice,
-      category: data.category as "abayas" | "hijabs",
+      category: data.category,
       description: data.description,
       fabric: data.fabric,
       care: data.care,
@@ -122,7 +128,7 @@ export async function createProduct(
     },
   });
 
-  revalidateStorefront(slug);
+  await revalidateStorefront(slug);
   redirect("/admin");
 }
 
@@ -141,13 +147,18 @@ export async function updateProduct(
     return { error: "Add at least one photo." };
   }
 
+  const categories = await getAllCategories();
+  if (!categories.some((c) => c.slug === data.category)) {
+    return { error: "Please choose a valid category." };
+  }
+
   const product = await prisma.product.update({
     where: { id },
     data: {
       name: data.name,
       price: data.price,
       originalPrice: data.originalPrice,
-      category: data.category as "abayas" | "hijabs",
+      category: data.category,
       description: data.description,
       fabric: data.fabric,
       care: data.care,
@@ -157,7 +168,7 @@ export async function updateProduct(
     },
   });
 
-  revalidateStorefront(product.slug);
+  await revalidateStorefront(product.slug);
   redirect("/admin");
 }
 
@@ -168,5 +179,5 @@ export async function deleteProduct(id: string) {
 
   await Promise.allSettled(product.images.map((url) => del(url)));
 
-  revalidateStorefront(product.slug);
+  await revalidateStorefront(product.slug);
 }

@@ -1,15 +1,13 @@
 import { prisma } from "./db";
 import type { Product as DbProduct } from "@prisma/client";
 
-export type Category = "abayas" | "hijabs";
-
 export type Product = {
   id: string;
   slug: string;
   name: string;
   price: number;
   originalPrice?: number;
-  category: Category;
+  category: string;
   description: string;
   fabric: string;
   care: string;
@@ -26,7 +24,7 @@ function toProduct(p: DbProduct): Product {
     name: p.name,
     price: Number(p.price),
     originalPrice: p.originalPrice ? Number(p.originalPrice) : undefined,
-    category: p.category as Category,
+    category: p.category,
     description: p.description,
     fabric: p.fabric,
     care: p.care,
@@ -42,7 +40,7 @@ export async function getAllProducts(): Promise<Product[]> {
   return rows.map(toProduct);
 }
 
-export async function getProductsByCategory(category: Category): Promise<Product[]> {
+export async function getProductsByCategory(category: string): Promise<Product[]> {
   const rows = await prisma.product.findMany({
     where: { category },
     orderBy: { createdAt: "asc" },

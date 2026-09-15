@@ -10,6 +10,7 @@ import WishlistDrawer from "@/components/WishlistDrawer";
 import NewsletterModal from "@/components/NewsletterModal";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import TrustBadges from "@/components/TrustBadges";
+import { getAllCategories } from "@/lib/categories";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -51,7 +52,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const categories = await getAllCategories();
+  const navLinks = [
+    ...categories.map((c) => ({ href: `/${c.slug}`, label: c.name })),
+    { href: "/last-chance", label: "Last Chance" },
+    { href: "/about", label: "About" },
+  ];
+
   return (
     <html
       lang="en"
@@ -61,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <CartProvider>
           <WishlistProvider>
             <AnnouncementBar />
-            <Nav />
+            <Nav links={navLinks} />
             <main className="flex-1">{children}</main>
             <TrustBadges />
             <Footer />
