@@ -98,19 +98,8 @@ export default function Nav({
           scrolled ? "py-2" : "py-3"
         }`}
       >
-        <div className="flex items-center gap-6">
-          <nav className="hidden gap-6 font-sans text-xs tracking-[0.18em] uppercase text-espresso md:flex">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="relative whitespace-nowrap pb-1 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:text-gold hover:after:w-full"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+        {/* Empty track, so the brand centres against the icons opposite. */}
+        <div aria-hidden />
 
         <Link href="/" className="flex items-center gap-2 justify-self-center">
           <Image
@@ -173,6 +162,25 @@ export default function Nav({
           </button>
         </div>
       </div>
+
+      {/* Categories get their own row, so the list can grow as she adds
+          them without crowding the brand. Wraps rather than overflowing.
+          Hidden on mobile — the burger menu covers it there. */}
+      <nav
+        className={`mx-auto hidden max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-2 px-6 font-sans text-xs uppercase tracking-[0.18em] text-espresso transition-[padding] duration-300 md:flex ${
+          scrolled ? "pb-2" : "pb-3"
+        }`}
+      >
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="relative whitespace-nowrap pb-1 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:text-gold hover:after:w-full"
+          >
+            {l.label}
+          </Link>
+        ))}
+      </nav>
       </div>
 
       {/* Full-screen mobile menu */}
