@@ -1,12 +1,18 @@
 import type Stripe from "stripe";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
-import { getStripe, isStripeConfigured } from "@/lib/stripe";
+import { getStripe, getWebhookSecret } from "@/lib/stripe";
 
 export async function POST(request: Request) {
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!isStripeConfigured() || !webhookSecret) {
-    console.error("Stripe webhook called but Stripe isn't configured");
+  let stripe: Stripe;
+  let webhookSecret: string;
+  try {
+    stripe = getStripe();
+    webhookSecret = getWebhookSecret();
+  } catch (err) {
+    // 5xx, not 4xx: this is our misconfiguration rather than a bad request,
+    // and Stripe retrying means the events still arrive once it's fixed.
+    console.error("Stripe webhook called but Stripe isn't configured correctly", err);
     return new Response("Stripe is not configured", { status: 500 });
   }
 
@@ -21,7 +27,7 @@ export async function POST(request: Request) {
 
   let event: Stripe.Event;
   try {
-    event = await getStripe().webhooks.constructEventAsync(
+    event = await stripe.webhooks.constructEventAsync(
       payload,
       signature,
       webhookSecret

@@ -9,22 +9,47 @@ import {
 let client: Stripe | null = null;
 
 /**
+ * Pasting a secret into a dashboard easily drags in a trailing line break.
+ * For the API key, Node then refuses to put it in the Authorization header,
+ * which surfaces only as a misleading "connection to Stripe" error. For the
+ * webhook secret it's worse: every signature check fails silently, so payments
+ * succeed but orders never get marked paid. So trim, and if the value still
+ * isn't shaped like a key, say so plainly. The value itself is never logged.
+ */
+function readSecret(name: string, shape: RegExp): string {
+  const value = process.env[name]?.trim();
+  if (!value) {
+    throw new Error(`${name} is not set`);
+  }
+  if (!shape.test(value)) {
+    throw new Error(
+      `${name} is malformed: it contains unexpected characters. It was ` +
+        "probably pasted with something extra, or a masked preview was " +
+        "copied instead of the real value. Re-add it in Vercel and redeploy."
+    );
+  }
+  return value;
+}
+
+/**
  * Built lazily so the app still builds and deploys before the live keys are
  * added in Vercel — only the checkout paths fail, not the whole site.
  */
 export function getStripe(): Stripe {
   if (!client) {
-    const key = process.env.STRIPE_SECRET_KEY;
-    if (!key) {
-      throw new Error("STRIPE_SECRET_KEY is not set");
-    }
-    client = new Stripe(key);
+    client = new Stripe(
+      readSecret("STRIPE_SECRET_KEY", /^(sk|rk)_(test|live)_[A-Za-z0-9]+$/)
+    );
   }
   return client;
 }
 
+export function getWebhookSecret(): string {
+  return readSecret("STRIPE_WEBHOOK_SECRET", /^whsec_[A-Za-z0-9+/=_-]+$/);
+}
+
 export function isStripeConfigured(): boolean {
-  return Boolean(process.env.STRIPE_SECRET_KEY);
+  return Boolean(process.env.STRIPE_SECRET_KEY?.trim());
 }
 
 export const CURRENCY = "gbp";
