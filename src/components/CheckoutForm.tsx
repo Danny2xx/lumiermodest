@@ -3,130 +3,148 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartContext";
+import ProductImage from "@/components/ProductImage";
 import { startCheckout } from "@/app/checkout/actions";
-import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
+import { amountToFreeDelivery, SHIPPING_RATES } from "@/lib/shipping";
 
-const inputClass =
-  "border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe";
+const money = (n: number) => `£${n.toFixed(2)}`;
 
 export default function CheckoutForm({
-  defaultEmail,
-  isSignedIn,
+  customerEmail,
   stripeReady,
 }: {
-  defaultEmail: string;
-  isSignedIn: boolean;
+  customerEmail: string;
   stripeReady: boolean;
 }) {
-  const { lines, subtotal } = useCart();
-  const [email, setEmail] = useState(defaultEmail);
+  const { lines, subtotal, hasSoldOut, open } = useCart();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handlePay = () => {
     setError(null);
-
     startTransition(async () => {
       const result = await startCheckout(
         lines.map((l) => ({
           slug: l.product.slug,
           size: l.size,
           qty: l.qty,
-        })),
-        email
+        }))
       );
 
       if ("error" in result) {
         setError(result.error);
         return;
       }
-      // Hand off to Stripe's hosted checkout page.
+      // Hand off to Stripe's hosted payment page.
       window.location.href = result.url;
     });
   };
 
   if (lines.length === 0) {
     return (
-      <p className="mt-6 font-sans text-sm text-espresso/70">
-        Your bag is empty.{" "}
-        <Link href="/abayas" className="underline hover:text-gold">
-          Continue shopping
+      <p className="mt-6 font-sans text-sm text-espresso">
+        There&apos;s nothing in your bag yet.{" "}
+        <Link href="/" className="underline hover:text-gold">
+          Start browsing
         </Link>
         .
       </p>
     );
   }
 
-  const qualifiesForFreeShipping = subtotal > FREE_SHIPPING_THRESHOLD;
+  const toFree = amountToFreeDelivery(subtotal);
 
   return (
     <>
-      <ul className="mt-8 divide-y divide-taupe/15">
+      <ul className="mt-8 divide-y divide-taupe/15 border-y border-taupe/15">
         {lines.map((l) => (
           <li
             key={`${l.product.slug}-${l.size}`}
-            className="flex justify-between py-3 font-sans text-sm"
+            className="flex items-center gap-4 py-4"
           >
-            <span>
-              {l.product.name} ({l.size}) × {l.qty}
-            </span>
-            <span>£{(l.product.price * l.qty).toFixed(2)}</span>
+            <ProductImage
+              src={l.product.images?.[0]}
+              swatch={l.product.swatch}
+              alt={l.product.name}
+              sizes="64px"
+              className="h-20 w-16 flex-shrink-0"
+            />
+            <div className="flex-1">
+              <p className="font-serif text-lg text-espresso">
+                {l.product.name}
+              </p>
+              <p className="font-sans text-xs text-espresso/80">
+                Size {l.size}
+                {l.qty > 1 ? ` · ${l.qty} of them` : ""}
+              </p>
+            </div>
+            <p className="font-sans text-sm text-espresso">
+              {money(l.product.price * l.qty)}
+            </p>
           </li>
         ))}
       </ul>
+
       <div className="mt-4 flex justify-between font-serif text-xl text-espresso">
         <span>Subtotal</span>
-        <span>£{subtotal.toFixed(2)}</span>
+        <span>{money(subtotal)}</span>
       </div>
-      <p className="mt-2 font-sans text-xs text-espresso/60">
-        {qualifiesForFreeShipping
-          ? "Your order qualifies for free standard delivery."
-          : `Delivery is calculated at the next step — free standard delivery over £${FREE_SHIPPING_THRESHOLD}.`}
+      <p className="mt-2 font-sans text-xs text-espresso/80">
+        {toFree === 0
+          ? "Free UK standard delivery included — you'll pick your delivery speed next."
+          : `Delivery from ${money(
+              SHIPPING_RATES[0].amount
+            )}, chosen on the next step. Spend ${money(
+              toFree
+            )} more for free standard delivery.`}
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-4">
-        <label
-          htmlFor="checkout-email"
-          className="font-sans text-xs uppercase tracking-[0.18em] text-espresso/70"
-        >
-          Email for your receipt
-        </label>
-        <input
-          id="checkout-email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          required
-          readOnly={isSignedIn}
-          className={`${inputClass} ${isSignedIn ? "text-espresso/60" : ""}`}
-        />
-
-        {!stripeReady && (
-          <p className="font-sans text-xs text-espresso/70">
-            Card payment is being set up. In the meantime we&apos;d still love
-            your order — message us on{" "}
-            <Link href="/contact" className="underline hover:text-gold">
-              WhatsApp or email
-            </Link>{" "}
-            and we&apos;ll arrange it personally.
-          </p>
+      <div className="mt-10">
+        {hasSoldOut ? (
+          <div className="border border-taupe/30 bg-sand px-4 py-4">
+            <p className="font-sans text-sm text-espresso">
+              Something in your bag has sold out since you added it.
+            </p>
+            <button
+              onClick={open}
+              className="mt-2 font-sans text-xs uppercase tracking-wide text-taupe-dark underline hover:text-espresso"
+            >
+              Open my bag
+            </button>
+          </div>
+        ) : (
+          <>
+            {!stripeReady && (
+              <p className="mb-3 font-sans text-sm text-espresso">
+                Card payment is being set up. We&apos;d still love your order —
+                message us on{" "}
+                <Link href="/contact" className="underline hover:text-gold">
+                  WhatsApp or email
+                </Link>{" "}
+                and we&apos;ll arrange it personally.
+              </p>
+            )}
+            {error && (
+              <p role="alert" className="mb-3 font-sans text-sm text-red-700">
+                {error}
+              </p>
+            )}
+            <button
+              onClick={handlePay}
+              disabled={isPending || !stripeReady}
+              className="w-full bg-taupe-dark py-4 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.01] hover:bg-espresso disabled:opacity-60 disabled:hover:scale-100"
+            >
+              {isPending ? "Taking you to payment…" : "Continue to payment"}
+            </button>
+            <p className="mt-3 text-center font-sans text-xs text-espresso/80">
+              {customerEmail
+                ? `Your receipt goes to ${customerEmail}.`
+                : "You'll add your email and delivery address on the next step."}{" "}
+              Card details are handled by Stripe and never reach us.
+            </p>
+          </>
         )}
-        {error && <p className="font-sans text-xs text-red-700">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={isPending || !stripeReady}
-          className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso disabled:opacity-60 disabled:hover:scale-100"
-        >
-          {isPending ? "Taking you to payment…" : "Pay Securely"}
-        </button>
-
-        <p className="text-center font-sans text-xs text-espresso/50">
-          Card details are collected by Stripe — they never touch our servers.
-        </p>
-      </form>
+      </div>
     </>
   );
 }

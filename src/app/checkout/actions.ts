@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
+import { MAX_QTY_PER_LINE } from "@/lib/cart";
 import { auth } from "@/lib/auth/server";
 import {
   ALLOWED_SHIPPING_COUNTRIES,
@@ -21,7 +22,6 @@ export type CheckoutItem = {
 
 export type CheckoutResult = { url: string } | { error: string };
 
-const MAX_QTY_PER_LINE = 10;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
@@ -59,7 +59,7 @@ async function siteOrigin(): Promise<string | null> {
 
 export async function startCheckout(
   items: CheckoutItem[],
-  emailFromForm: string
+  emailFromForm?: string
 ): Promise<CheckoutResult> {
   if (!isStripeConfigured()) {
     return { error: "Payments aren't switched on yet. Please try again later." };
@@ -68,12 +68,14 @@ export async function startCheckout(
     return { error: "Your bag is empty." };
   }
 
-  // A signed-in user's own email wins over anything typed into the form.
+  // A signed-in customer's own email wins. Otherwise we don't ask: Stripe
+  // collects it on the payment page, and the webhook writes it back to the
+  // order. That keeps the customer from typing it twice.
   const { data: session } = await auth.getSession();
   const email = (session?.user?.email ?? emailFromForm ?? "").trim().toLowerCase();
 
-  if (!EMAIL_PATTERN.test(email)) {
-    return { error: "Please enter a valid email address." };
+  if (email && !EMAIL_PATTERN.test(email)) {
+    return { error: "That email address doesn't look right." };
   }
 
   // Re-price everything from the database. The cart lives in localStorage, so
@@ -87,10 +89,13 @@ export async function startCheckout(
   for (const item of items) {
     const product = bySlug.get(item.slug);
     if (!product) {
-      return { error: "An item in your bag is no longer available." };
+      return {
+        error:
+          "Something in your bag isn't available any more. Open your bag — it'll show you what changed.",
+      };
     }
     if (!product.inStock) {
-      return { error: `${product.name} is out of stock.` };
+      return { error: `${product.name} has just sold out. Remove it from your bag to carry on.` };
     }
     if (!product.sizes.includes(item.size)) {
       return { error: `${product.name} isn't available in size ${item.size}.` };
@@ -98,7 +103,7 @@ export async function startCheckout(
 
     const qty = Math.floor(Number(item.qty));
     if (!Number.isFinite(qty) || qty < 1 || qty > MAX_QTY_PER_LINE) {
-      return { error: `Please choose between 1 and ${MAX_QTY_PER_LINE} of each item.` };
+      return { error: `You can order up to ${MAX_QTY_PER_LINE} of each piece.` };
     }
 
     lines.push({ product, size: item.size, qty, price: Number(product.price) });
@@ -135,7 +140,8 @@ export async function startCheckout(
   try {
     const checkout = await getStripe().checkout.sessions.create({
       mode: "payment",
-      customer_email: email,
+      // Omitted for guests so Stripe asks once, rather than us asking too.
+      customer_email: email || undefined,
       client_reference_id: order.id,
       metadata: { orderId: order.id },
       payment_intent_data: { metadata: { orderId: order.id } },

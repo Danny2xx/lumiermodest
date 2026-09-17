@@ -48,6 +48,12 @@ export async function getProductsByCategory(category: string): Promise<Product[]
   return rows.map(toProduct);
 }
 
+export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
+  if (slugs.length === 0) return [];
+  const rows = await prisma.product.findMany({ where: { slug: { in: slugs } } });
+  return rows.map(toProduct);
+}
+
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const row = await prisma.product.findUnique({ where: { slug } });
   return row ? toProduct(row) : null;

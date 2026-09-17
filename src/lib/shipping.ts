@@ -15,3 +15,14 @@ export const SHIPPING_RATES = [
 
 /** We ship to the UK only — see /shipping. */
 export const SHIPPING_COUNTRIES = ["GB"] as const;
+
+/** What standard delivery costs at this subtotal — 0 once it's free. */
+export function standardDeliveryFor(subtotal: number): number {
+  return subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_RATES[0].amount;
+}
+
+/** How much more to spend for free standard delivery; 0 once qualified. */
+export function amountToFreeDelivery(subtotal: number): number {
+  const gap = FREE_SHIPPING_THRESHOLD - subtotal;
+  return gap > 0 ? gap : 0;
+}
