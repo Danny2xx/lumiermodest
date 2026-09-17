@@ -30,6 +30,9 @@ export default async function AdminLayout({
             <Link href="/admin/subscribers" className="hover:text-gold">
               Subscribers
             </Link>
+            <Link href="/admin/users" className="hover:text-gold">
+              Team
+            </Link>
             <Link href="/" className="hover:text-gold">
               View store
             </Link>
