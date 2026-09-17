@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth/server";
 import {
@@ -35,6 +36,25 @@ function toPublicImageUrl(images: string[], siteUrl: string): string[] {
   if (first.startsWith("https://")) return [first];
   if (siteUrl.startsWith("https://")) return [new URL(first, siteUrl).toString()];
   return [];
+}
+
+/**
+ * Where Stripe sends the customer back to. Prefers the configured URL, and
+ * otherwise uses the domain this request arrived on — so a missing
+ * NEXT_PUBLIC_SITE_URL can never strand a paying customer on localhost.
+ * Same approach as the password-reset action.
+ */
+async function siteOrigin(): Promise<string | null> {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (configured) return configured.replace(/\/+$/, "");
+
+  const headerList = await headers();
+  const host = headerList.get("host");
+  if (!host) return null;
+  const protocol =
+    headerList.get("x-forwarded-proto") ??
+    (host.startsWith("localhost") ? "http" : "https");
+  return `${protocol}://${host}`;
 }
 
 export async function startCheckout(
@@ -86,6 +106,13 @@ export async function startCheckout(
 
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
 
+  // Resolved before the order is written, so a failure here can't leave a
+  // pending order behind with no checkout session attached.
+  const siteUrl = await siteOrigin();
+  if (!siteUrl) {
+    return { error: "We couldn't start checkout. Please try again." };
+  }
+
   // Record the order as pending first, so a successful payment always has a
   // row to attach itself to when the webhook arrives.
   const order = await prisma.order.create({
@@ -104,11 +131,6 @@ export async function startCheckout(
       },
     },
   });
-
-  // Trailing slashes would turn the redirect targets into `//checkout/...`.
-  const siteUrl = (
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  ).replace(/\/+$/, "");
 
   try {
     const checkout = await getStripe().checkout.sessions.create({
