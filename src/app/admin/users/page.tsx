@@ -46,8 +46,11 @@ export default async function UsersPage() {
           const isYou = user.id === session.user.id;
 
           return (
-            <div key={user.id} className="flex items-center gap-4 py-4">
-              <div className="flex-1">
+            <div
+              key={user.id}
+              className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:gap-4"
+            >
+              <div className="min-w-0 flex-1">
                 <p className="font-serif text-lg text-espresso">
                   {user.name}
                   {isYou && (
@@ -56,28 +59,30 @@ export default async function UsersPage() {
                     </span>
                   )}
                 </p>
-                <p className="font-sans text-xs text-espresso/50">
+                <p className="break-words font-sans text-xs text-espresso/50">
                   {user.email}
                   {user.createdAt &&
                     ` · joined ${dateFormat.format(user.createdAt)}`}
                 </p>
               </div>
 
-              <span
-                className={
-                  user.isAdmin
-                    ? "border border-gold px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-gold"
-                    : "font-sans text-xs uppercase tracking-[0.14em] text-espresso/40"
-                }
-              >
-                {user.isAdmin ? "Admin" : "Customer"}
-              </span>
+              <div className="flex items-center justify-between gap-4 sm:justify-end">
+                <span
+                  className={
+                    user.isAdmin
+                      ? "border border-gold px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-gold"
+                      : "font-sans text-xs uppercase tracking-[0.14em] text-espresso/40"
+                  }
+                >
+                  {user.isAdmin ? "Admin" : "Customer"}
+                </span>
 
-              <RoleButton
-                userId={user.id}
-                name={user.name}
-                isAdmin={user.isAdmin}
-              />
+                <RoleButton
+                  userId={user.id}
+                  name={user.name}
+                  isAdmin={user.isAdmin}
+                />
+              </div>
             </div>
           );
         })}
