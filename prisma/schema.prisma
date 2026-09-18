@@ -52,12 +52,19 @@ model Product {
 model Order {
   id              String      @id @default(cuid())
   email           String
+  /// The Neon Auth user who placed this, when they were signed in. Orders are
+  /// matched to an account by this, never by email: sign-up doesn't verify
+  /// email addresses, so matching on email would let anyone register with a
+  /// customer's address and read her order history.
+  userId          String?
   status          OrderStatus @default(pending)
   subtotal        Decimal     @db.Decimal(10, 2)
   stripeSessionId String?     @unique
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   items           OrderItem[]
+
+  @@index([userId])
 }
 
 model OrderItem {

@@ -123,6 +123,10 @@ export async function startCheckout(
   const order = await prisma.order.create({
     data: {
       email,
+      // Matched on the account, not the email: sign-up doesn't verify email
+      // addresses, so email matching would expose one customer's history to
+      // anyone who registered with her address.
+      userId: session?.user?.id ?? null,
       subtotal,
       items: {
         create: lines.map((l) => ({
