@@ -95,7 +95,7 @@ export default function WishlistDrawer() {
                         </Link>
                         <p className="font-sans text-xs text-espresso/80">
                           {product.originalPrice && (
-                            <span className="mr-2 line-through text-espresso/70">
+                            <span className="mr-2 line-through text-espresso/80">
                               {money(product.originalPrice)}
                             </span>
                           )}
@@ -104,7 +104,7 @@ export default function WishlistDrawer() {
                       </div>
                       <div className="flex items-center gap-4">
                         {!product.inStock ? (
-                          <span className="font-sans text-xs uppercase tracking-wide text-espresso/70">
+                          <span className="font-sans text-xs uppercase tracking-wide text-espresso/80">
                             Sold out
                           </span>
                         ) : oneSize ? (

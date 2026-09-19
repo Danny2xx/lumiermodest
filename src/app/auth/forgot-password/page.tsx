@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
         </p>
       ) : (
         <>
-          <p className="mt-6 text-center font-sans text-sm text-espresso/70">
+          <p className="mt-6 text-center font-sans text-sm text-espresso/80">
             Enter your email and we&apos;ll send you a link to reset your
             password.
           </p>
@@ -53,8 +53,8 @@ export default function ForgotPasswordPage() {
         </>
       )}
 
-      <p className="mt-6 text-center font-sans text-xs text-espresso/60">
-        <Link href="/auth/sign-in" className="underline hover:text-gold">
+      <p className="mt-6 text-center font-sans text-xs text-espresso/80">
+        <Link href="/auth/sign-in" className="underline hover:text-gold-ink">
           Back to sign in
         </Link>
       </p>

@@ -28,7 +28,7 @@ export default function ContactPage() {
             href={whatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-gold"
+            className="underline hover:text-gold-ink"
           >
             Message us
           </a>
@@ -40,7 +40,7 @@ export default function ContactPage() {
       <h2 className="mt-14 font-serif italic text-3xl text-taupe">
         Contact form
       </h2>
-      <p className="mt-2 font-sans text-sm text-espresso/70">
+      <p className="mt-2 font-sans text-sm text-espresso/80">
         You can also reach us directly through the form below.
       </p>
 

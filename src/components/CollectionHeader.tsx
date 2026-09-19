@@ -6,20 +6,24 @@ export default function CollectionHeader({
   subtitle,
   dark = false,
 }: {
-  eyebrow: string;
+  /** Optional on purpose: a tracked label above every heading is template
+      grammar, not voice. Use it only where it genuinely says something. */
+  eyebrow?: string;
   title: string;
   subtitle: string;
   dark?: boolean;
 }) {
   return (
     <div className="mb-10 pb-10">
-      <p
-        className={`mb-2 font-sans text-xs uppercase tracking-[0.3em] ${
-          dark ? "text-gold" : "text-taupe"
-        }`}
-      >
-        {eyebrow}
-      </p>
+      {eyebrow && (
+        <p
+          className={`mb-2 font-sans text-xs uppercase tracking-[0.3em] ${
+            dark ? "text-gold" : "text-taupe-dark"
+          }`}
+        >
+          {eyebrow}
+        </p>
+      )}
       <h1
         className={`font-serif italic tracking-tight text-5xl sm:text-6xl ${
           dark ? "text-cream" : "text-taupe-dark"
@@ -29,7 +33,7 @@ export default function CollectionHeader({
       </h1>
       <p
         className={`mt-3 font-sans text-lg ${
-          dark ? "text-cream/70" : "text-espresso/70"
+          dark ? "text-cream/70" : "text-espresso/80"
         }`}
       >
         {subtitle}

@@ -9,7 +9,7 @@ import { uploadProductImage, deleteProductImage } from "./actions";
 const inputClass =
   "w-full border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe";
 const labelClass =
-  "mb-1.5 block font-sans text-xs uppercase tracking-wide text-espresso/60";
+  "mb-1.5 block font-sans text-xs uppercase tracking-wide text-espresso/80";
 
 export default function ProductForm({
   product,
@@ -81,7 +81,7 @@ export default function ProductForm({
               <input type="hidden" name="images" value={url} />
             </div>
           ))}
-          <label className="flex h-24 w-20 flex-shrink-0 cursor-pointer flex-col items-center justify-center border border-dashed border-taupe/40 font-sans text-xs text-espresso/50 hover:border-taupe">
+          <label className="flex h-24 w-20 flex-shrink-0 cursor-pointer flex-col items-center justify-center border border-dashed border-taupe/40 font-sans text-xs text-espresso/80 hover:border-taupe">
             {uploading ? "Uploading…" : "+ Add"}
             <input
               ref={fileInputRef}
@@ -155,7 +155,7 @@ export default function ProductForm({
             }
             className={inputClass}
           />
-          <p className="mt-1 font-sans text-xs text-espresso/50">
+          <p className="mt-1 font-sans text-xs text-espresso/80">
             The original (higher) price — the price above becomes the sale
             price.
           </p>

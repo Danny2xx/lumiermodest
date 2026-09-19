@@ -66,7 +66,7 @@ export default function CategoryProductGrid({
     dark ? "border-cream/30 text-cream" : "border-taupe/30 text-espresso"
   }`;
   const labelClass = `font-sans text-xs uppercase tracking-[0.1em] ${
-    dark ? "text-cream/70" : "text-espresso/70"
+    dark ? "text-cream/70" : "text-espresso/80"
   }`;
 
   return (
@@ -140,7 +140,7 @@ export default function CategoryProductGrid({
       </div>
 
       {visible.length === 0 ? (
-        <p className={`py-16 text-center font-sans text-sm ${dark ? "text-cream/60" : "text-espresso/60"}`}>
+        <p className={`py-16 text-center font-sans text-sm ${dark ? "text-cream/60" : "text-espresso/80"}`}>
           No items match this filter.
         </p>
       ) : view === "grid" ? (
@@ -169,7 +169,7 @@ export default function CategoryProductGrid({
                   />
                   {!p.inStock && (
                     <span className="absolute left-1 top-1 bg-espresso px-1.5 py-0.5 font-sans text-[8px] uppercase tracking-wide text-cream">
-                      Sold Out
+                      Sold out
                     </span>
                   )}
                 </div>
@@ -178,17 +178,17 @@ export default function CategoryProductGrid({
                     <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>
                       {p.name}
                     </p>
-                    <p className={`font-sans text-xs ${dark ? "text-cream/60" : "text-espresso/60"}`}>
+                    <p className={`font-sans text-xs ${dark ? "text-cream/60" : "text-espresso/80"}`}>
                       {p.sizes.join(" · ")}
                     </p>
                   </div>
-                  <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/70"}`}>
+                  <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/80"}`}>
                     {p.originalPrice && (
-                      <span className={`mr-2 line-through ${dark ? "text-cream/40" : "text-espresso/40"}`}>
+                      <span className={`mr-2 line-through ${dark ? "text-cream/70" : "text-espresso/80"}`}>
                         £{p.originalPrice.toFixed(2)}
                       </span>
                     )}
-                    £{p.price.toFixed(2)} GBP
+                    £{p.price.toFixed(2)}
                   </p>
                 </div>
               </Link>

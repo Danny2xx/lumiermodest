@@ -11,7 +11,7 @@ export default function Flourish({
   align?: "center" | "start";
 }) {
   const color =
-    tone === "gold" ? "text-gold" : tone === "cream" ? "text-cream/60" : "text-taupe/50";
+    tone === "gold" ? "text-gold" : tone === "cream" ? "text-cream/60" : "text-espresso/80";
   const justify = align === "start" ? "justify-start" : "justify-center";
 
   return (

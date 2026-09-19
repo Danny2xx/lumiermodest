@@ -70,12 +70,12 @@ export default function SearchOverlay({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search abayas, hijabs..."
-            className="flex-1 bg-transparent font-sans text-sm text-espresso placeholder:text-espresso/50 focus:outline-none"
+            className="flex-1 bg-transparent font-sans text-sm text-espresso placeholder:text-espresso/80 focus:outline-none"
           />
           <button
             onClick={onClose}
             aria-label="Close search"
-            className="text-espresso/60 transition-colors hover:text-gold"
+            className="text-espresso/80 transition-colors hover:text-gold-ink"
           >
             ×
           </button>
@@ -84,11 +84,11 @@ export default function SearchOverlay({
         {query.trim() && (
           <ul className="mt-4 max-h-80 overflow-y-auto">
             {loading ? (
-              <p className="py-4 font-sans text-sm text-espresso/60">
+              <p className="py-4 font-sans text-sm text-espresso/80">
                 Searching…
               </p>
             ) : results.length === 0 ? (
-              <p className="py-4 font-sans text-sm text-espresso/60">
+              <p className="py-4 font-sans text-sm text-espresso/80">
                 No results for &quot;{query}&quot;.
               </p>
             ) : (
@@ -97,10 +97,10 @@ export default function SearchOverlay({
                   <Link
                     href={`/products/${p.slug}`}
                     onClick={onClose}
-                    className="flex items-center justify-between py-3 font-sans text-sm text-espresso hover:text-gold"
+                    className="flex items-center justify-between py-3 font-sans text-sm text-espresso hover:text-gold-ink"
                   >
                     <span>{p.name}</span>
-                    <span className="text-espresso/60">
+                    <span className="text-espresso/80">
                       £{p.price.toFixed(2)}
                     </span>
                   </Link>

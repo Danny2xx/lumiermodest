@@ -27,10 +27,10 @@ export default async function CheckoutSuccessPage({
           We couldn&apos;t find that order
         </h1>
         <Flourish className="mt-4" />
-        <p className="mt-8 font-sans text-sm text-espresso/70">
+        <p className="mt-8 font-sans text-sm text-espresso/80">
           If you were charged, your confirmation email will still arrive. Get in
           touch via our{" "}
-          <Link href="/contact" className="underline hover:text-gold">
+          <Link href="/contact" className="underline hover:text-gold-ink">
             contact page
           </Link>{" "}
           and we&apos;ll look it up for you.
@@ -56,7 +56,7 @@ export default async function CheckoutSuccessPage({
       </p>
 
       <div className="mt-10 border border-taupe/30 bg-sand p-6">
-        <p className="font-sans text-xs uppercase tracking-[0.18em] text-espresso/60">
+        <p className="font-sans text-xs uppercase tracking-[0.18em] text-espresso/80">
           Order reference
         </p>
         <p className="mt-1 font-serif text-xl text-taupe-dark">{order.id}</p>
@@ -79,21 +79,21 @@ export default async function CheckoutSuccessPage({
           <span>Subtotal</span>
           <span>£{total.toFixed(2)}</span>
         </div>
-        <p className="mt-2 font-sans text-xs text-espresso/60">
+        <p className="mt-2 font-sans text-xs text-espresso/80">
           Delivery is shown separately on your Stripe receipt.
         </p>
 
         {order.status === "pending" && (
-          <p className="mt-4 font-sans text-xs text-espresso/60">
+          <p className="mt-4 font-sans text-xs text-espresso/80">
             Payment is still being confirmed — this usually takes a few seconds.
             Refresh in a moment, or check your email.
           </p>
         )}
       </div>
 
-      <p className="mt-8 text-center font-sans text-sm text-espresso/70">
+      <p className="mt-8 text-center font-sans text-sm text-espresso/80">
         Orders are processed within 1–2 business days — see our{" "}
-        <Link href="/shipping" className="underline hover:text-gold">
+        <Link href="/shipping" className="underline hover:text-gold-ink">
           shipping policy
         </Link>
         .

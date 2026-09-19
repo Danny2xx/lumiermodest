@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Sparkle from "./Sparkle";
@@ -76,17 +76,33 @@ function CrossfadePanel({
   );
 }
 
-export default function Hero() {
+const REDUCE_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeToMotionPreference(onChange: () => void) {
+  const query = window.matchMedia(REDUCE_MOTION);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+export default function Hero({ shopHref }: { shopHref: string }) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
 
+  // Movement can trigger migraine and vestibular symptoms, so a slideshow
+  // that advances on its own has to honour the system setting.
+  const reduceMotion = useSyncExternalStore(
+    subscribeToMotionPreference,
+    () => window.matchMedia(REDUCE_MOTION).matches,
+    () => false
+  );
+
   useEffect(() => {
-    if (!playing) return;
+    if (!playing || reduceMotion) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [playing]);
+  }, [playing, reduceMotion]);
 
   return (
     <section className="relative grid h-[85vh] min-h-[520px] grid-cols-1 md:h-[70vh] md:min-h-[420px] md:grid-cols-3">
@@ -115,7 +131,7 @@ export default function Hero() {
             Elevated Elegance
           </h1>
           <Link
-            href="/abayas"
+            href={shopHref}
             className="mt-2 bg-cream px-8 py-3 font-sans text-xs uppercase tracking-[0.18em] text-espresso transition-all duration-200 hover:scale-[1.03] hover:bg-white"
           >
             Shop Collection
@@ -123,13 +139,15 @@ export default function Hero() {
         </div>
 
         <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-4">
-          <button
-            onClick={() => setPlaying((p) => !p)}
-            aria-label={playing ? "Pause slideshow" : "Play slideshow"}
-            className="text-cream/90 transition-colors hover:text-cream"
-          >
-            {playing ? <PauseIcon /> : <PlayIcon />}
-          </button>
+          {!reduceMotion && (
+            <button
+              onClick={() => setPlaying((p) => !p)}
+              aria-label={playing ? "Pause slideshow" : "Play slideshow"}
+              className="text-cream/90 transition-colors hover:text-cream"
+            >
+              {playing ? <PauseIcon /> : <PlayIcon />}
+            </button>
+          )}
           <div className="flex gap-2">
             {slides.map((_, i) => (
               <button

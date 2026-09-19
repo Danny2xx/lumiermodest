@@ -44,7 +44,7 @@ export default function CheckoutForm({
     return (
       <p className="mt-6 font-sans text-sm text-espresso">
         There&apos;s nothing in your bag yet.{" "}
-        <Link href="/" className="underline hover:text-gold">
+        <Link href="/" className="underline hover:text-gold-ink">
           Start browsing
         </Link>
         .
@@ -118,7 +118,7 @@ export default function CheckoutForm({
               <p className="mb-3 font-sans text-sm text-espresso">
                 Card payment is being set up. We&apos;d still love your order —
                 message us on{" "}
-                <Link href="/contact" className="underline hover:text-gold">
+                <Link href="/contact" className="underline hover:text-gold-ink">
                   WhatsApp or email
                 </Link>{" "}
                 and we&apos;ll arrange it personally.

@@ -17,7 +17,7 @@ export default function SignInPage() {
         Sign in
       </h1>
       <Flourish className="mt-4" />
-      <p className="mt-6 text-center font-sans text-sm text-espresso/70">
+      <p className="mt-6 text-center font-sans text-sm text-espresso/80">
         Welcome back. Sign in to view your orders and saved details.
       </p>
 
@@ -38,7 +38,7 @@ export default function SignInPage() {
         />
         <Link
           href="/auth/forgot-password"
-          className="-mt-2 self-end font-sans text-xs text-espresso/60 underline hover:text-gold"
+          className="-mt-2 self-end font-sans text-xs text-espresso/80 underline hover:text-gold-ink"
         >
           Forgot password?
         </Link>
@@ -54,9 +54,9 @@ export default function SignInPage() {
         </button>
       </form>
 
-      <p className="mt-6 text-center font-sans text-xs text-espresso/60">
+      <p className="mt-6 text-center font-sans text-xs text-espresso/80">
         Don&apos;t have an account?{" "}
-        <Link href="/auth/sign-up" className="underline hover:text-gold">
+        <Link href="/auth/sign-up" className="underline hover:text-gold-ink">
           Create one
         </Link>
       </p>

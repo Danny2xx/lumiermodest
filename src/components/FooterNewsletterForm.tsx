@@ -12,7 +12,7 @@ export default function FooterNewsletterForm() {
 
   if (submitted) {
     return (
-      <p className="font-sans text-sm text-espresso/70">
+      <p className="font-sans text-sm text-espresso/80">
         You&apos;re on the list — thank you.
       </p>
     );
@@ -26,12 +26,12 @@ export default function FooterNewsletterForm() {
           name="email"
           required
           placeholder="Email address"
-          className="flex-1 bg-transparent font-sans text-sm text-espresso placeholder:text-espresso/50 focus:outline-none"
+          className="flex-1 bg-transparent font-sans text-sm text-espresso placeholder:text-espresso/80 focus:outline-none"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="font-sans text-sm text-taupe-dark transition-transform duration-200 hover:translate-x-1 hover:text-gold disabled:opacity-50"
+          className="font-sans text-sm text-taupe-dark transition-transform duration-200 hover:translate-x-1 hover:text-gold-ink disabled:opacity-50"
           aria-label="Subscribe"
         >
           →

@@ -25,7 +25,7 @@ export default function ProductCard({
         />
         {!product.inStock && (
           <span className="absolute left-3 top-3 bg-espresso px-2 py-1 font-sans text-[10px] uppercase tracking-[0.14em] text-cream">
-            Sold Out
+            Sold out
           </span>
         )}
         <WishlistButton product={product} className="absolute right-3 top-3" />
@@ -34,15 +34,15 @@ export default function ProductCard({
         <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>
           {product.name}
         </p>
-        <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/70"}`}>
+        <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/80"}`}>
           {product.originalPrice && (
             <span
-              className={`mr-2 line-through ${dark ? "text-cream/40" : "text-espresso/40"}`}
+              className={`mr-2 line-through ${dark ? "text-cream/70" : "text-espresso/80"}`}
             >
               £{product.originalPrice.toFixed(2)}
             </span>
           )}
-          £{product.price.toFixed(2)} GBP
+          £{product.price.toFixed(2)}
         </p>
       </div>
     </Link>

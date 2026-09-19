@@ -31,14 +31,14 @@ export default async function UsersPage() {
   return (
     <div>
       <h1 className="font-serif text-3xl text-taupe-dark">Team</h1>
-      <p className="mt-2 font-sans text-sm text-espresso/60">
+      <p className="mt-2 font-sans text-sm text-espresso/80">
         Everyone who has registered on the site. Admins can manage products,
         categories, and this list.
       </p>
 
       <div className="mt-8 divide-y divide-taupe/15 border-y border-taupe/15">
         {users.length === 0 && (
-          <p className="py-10 text-center font-sans text-sm text-espresso/60">
+          <p className="py-10 text-center font-sans text-sm text-espresso/80">
             Nobody has registered yet.
           </p>
         )}
@@ -54,12 +54,12 @@ export default async function UsersPage() {
                 <p className="font-serif text-lg text-espresso">
                   {user.name}
                   {isYou && (
-                    <span className="ml-2 font-sans text-xs uppercase tracking-wide text-espresso/40">
+                    <span className="ml-2 font-sans text-xs uppercase tracking-wide text-espresso/80">
                       you
                     </span>
                   )}
                 </p>
-                <p className="break-words font-sans text-xs text-espresso/50">
+                <p className="break-words font-sans text-xs text-espresso/80">
                   {user.email}
                   {user.createdAt &&
                     ` · joined ${dateFormat.format(user.createdAt)}`}
@@ -71,7 +71,7 @@ export default async function UsersPage() {
                   className={
                     user.isAdmin
                       ? "border border-gold px-3 py-1 font-sans text-xs uppercase tracking-[0.14em] text-gold"
-                      : "font-sans text-xs uppercase tracking-[0.14em] text-espresso/40"
+                      : "font-sans text-xs uppercase tracking-[0.14em] text-espresso/80"
                   }
                 >
                   {user.isAdmin ? "Admin" : "Customer"}
@@ -88,7 +88,7 @@ export default async function UsersPage() {
         })}
       </div>
 
-      <p className="mt-6 font-sans text-xs text-espresso/50">
+      <p className="mt-6 font-sans text-xs text-espresso/80">
         {total} account{total === 1 ? "" : "s"} · {adminCount} admin
         {adminCount === 1 ? "" : "s"}
       </p>

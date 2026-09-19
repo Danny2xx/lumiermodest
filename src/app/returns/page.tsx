@@ -4,77 +4,96 @@ import ContentPage, {
   NeedHelp,
 } from "@/components/ContentPage";
 
-export const metadata = { title: "Refund Policy — LumierModest" };
+export const metadata = { title: "Returns — LumierModest" };
 
 export default function ReturnsPage() {
   return (
-    <ContentPage title="Refund Policy">
-      <p>We want you to love your purchase. If something isn&apos;t right, we&apos;re here to help.</p>
-
-      <SectionHeading>Eligibility</SectionHeading>
+    <ContentPage title="Returns">
       <p>
-        Under UK Consumer Contracts Regulations, you have the right to
-        cancel your order within 14 days of receiving it, without giving a
-        reason. Items must be returned unworn, unwashed, and with original
-        tags attached.
+        We want you to love what you ordered. If it isn&apos;t right, you can
+        send it back — here&apos;s exactly how that works.
       </p>
 
-      <SectionHeading>How to Start a Return</SectionHeading>
+      <SectionHeading>Changing your mind</SectionHeading>
       <p>
-        Contact us via our{" "}
-        <Link href="/contact" className="underline">
+        You have 14 days from the day your order arrives to tell us you&apos;d
+        like to cancel it, for any reason at all. Once you&apos;ve told us, you
+        have a further 14 days to send the pieces back.
+      </p>
+      <p>
+        This applies to everything we sell, including anything bought in a
+        sale or from Last Chance.
+      </p>
+
+      <SectionHeading>Condition</SectionHeading>
+      <p>
+        Please return pieces unworn and unwashed, with their tags still
+        attached. You&apos;re welcome to try something on the way you would in
+        a fitting room — but if a piece comes back showing more wear than
+        that, we may reduce your refund to reflect its condition.
+      </p>
+
+      <SectionHeading>Starting a return</SectionHeading>
+      <p>
+        Message us through the{" "}
+        <Link href="/contact" className="underline hover:text-gold-ink">
           contact page
         </Link>{" "}
-        with your order number, and we&apos;ll send you next steps.
+        or on WhatsApp with your order reference, which is on your receipt and
+        in{" "}
+        <Link href="/account" className="underline hover:text-gold-ink">
+          your account
+        </Link>
+        . We&apos;ll reply with the return address and what to do next.
       </p>
 
-      <SectionHeading>Refunds</SectionHeading>
+      <SectionHeading>Who pays the postage</SectionHeading>
       <p>
-        Once we receive and inspect your return, we&apos;ll process your
-        refund to the original payment method. Please allow 5–10 business
-        days for it to appear on your statement. Original shipping costs are
-        not refunded.
+        You cover the cost of sending a piece back to us when you&apos;ve
+        changed your mind, including on orders that had free delivery. We
+        recommend a tracked service — until it reaches us, it&apos;s still your
+        parcel.
+      </p>
+      <p>
+        If something is faulty or we sent the wrong thing, we pay the return
+        postage. You&apos;ll never be out of pocket for our mistake.
+      </p>
+
+      <SectionHeading>Your refund</SectionHeading>
+      <p>
+        We refund to the card you paid with, within 14 days of your return
+        reaching us. Your bank usually takes a few more days to show it.
+      </p>
+      <p>
+        When you cancel a whole order within the 14 days, we also refund what
+        you paid for standard delivery. If you chose express delivery, we
+        refund the standard rate and keep the difference for the upgrade. When
+        you keep part of an order, delivery isn&apos;t refunded.
+      </p>
+
+      <SectionHeading>Faulty or damaged</SectionHeading>
+      <p>
+        If a piece arrives damaged or develops a fault, tell us as soon as you
+        can and send a photo if you&apos;re able. Within 30 days of delivery
+        you&apos;re entitled to a full refund. After that we&apos;ll repair or
+        replace it, and if neither is possible you can still have your money
+        back.
       </p>
 
       <SectionHeading>Exchanges</SectionHeading>
       <p>
-        If you&apos;d like a different size or colour, place a new order for
-        the item you want and request a return for the original.
-      </p>
-
-      <SectionHeading>Return Shipping Costs</SectionHeading>
-      <p>
-        Customers are responsible for return shipping costs, including on
-        orders that originally qualified for free delivery.
-      </p>
-
-      <SectionHeading>Exceptions</SectionHeading>
-      <p>
-        Items marked{" "}
-        <Link href="/last-chance" className="underline">
-          Last Chance
-        </Link>{" "}
-        are final sale and not eligible for return or exchange.
-      </p>
-
-      <SectionHeading>Damaged Items</SectionHeading>
-      <p>
-        Contact us within 5 days of receiving a damaged item, with your
-        order number and photos. Claims made outside this window may not be
-        accepted.
-      </p>
-
-      <p className="text-xs text-espresso/50">
-        Placeholder policy — have this reviewed against current UK consumer
-        law before launch.
+        The quickest way to swap a size is to order the one you want and
+        return the original — that way the piece you need is reserved for you
+        rather than waiting on the post.
       </p>
 
       <NeedHelp>
-        For any questions about returns, reach out via our{" "}
-        <Link href="/contact" className="underline">
+        Not sure about any of this? Ask us on the{" "}
+        <Link href="/contact" className="underline hover:text-gold-ink">
           contact page
-        </Link>
-        . Our team will take care of you.
+        </Link>{" "}
+        — we&apos;d rather sort it out than have you guessing. Nothing here
+        affects your legal rights.
       </NeedHelp>
     </ContentPage>
   );

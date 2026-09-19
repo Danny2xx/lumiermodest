@@ -23,7 +23,7 @@ export default async function SubscribersPage() {
 
       <div className="mt-8 divide-y divide-taupe/15 border-y border-taupe/15">
         {subscribers.length === 0 && (
-          <p className="py-10 text-center font-sans text-sm text-espresso/60">
+          <p className="py-10 text-center font-sans text-sm text-espresso/80">
             No subscribers yet.
           </p>
         )}
@@ -33,7 +33,7 @@ export default async function SubscribersPage() {
             className="flex items-center justify-between py-3 font-sans text-sm"
           >
             <span className="text-espresso">{s.email}</span>
-            <span className="text-xs uppercase tracking-wide text-espresso/50">
+            <span className="text-xs uppercase tracking-wide text-espresso/80">
               {s.source} · {s.createdAt.toLocaleDateString("en-GB")}
             </span>
           </div>

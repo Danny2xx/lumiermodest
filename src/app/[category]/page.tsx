@@ -31,12 +31,11 @@ export default async function CategoryPage({
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <CollectionHeader
-        eyebrow="The Collection"
-        title={category.name.toLowerCase()}
+        title={category.name}
         subtitle={category.subtitle ?? ""}
       />
       {products.length === 0 ? (
-        <p className="py-16 text-center font-sans text-sm text-espresso/60">
+        <p className="py-16 text-center font-sans text-sm text-espresso/80">
           Nothing here yet — check back soon.
         </p>
       ) : (

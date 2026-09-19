@@ -83,14 +83,17 @@ export default function SizingPage() {
         </tbody>
       </table>
 
-      <p className="text-xs text-espresso/50">
-        Placeholder measurements — replace with your own fit specs before
-        launch.
+      <p>
+        Treat these as a guide rather than a promise: fabrics fall differently,
+        and we&apos;re still adding exact measurements for each piece. If
+        you&apos;re between sizes or unsure, message us with your height and
+        the size you usually wear and we&apos;ll tell you which to choose —
+        we&apos;d far rather do that than have you send something back.
       </p>
 
       <NeedHelp>
         Still not sure which size to pick? Send us a message via our{" "}
-        <Link href="/contact" className="underline">
+        <Link href="/contact" className="underline hover:text-gold-ink">
           contact page
         </Link>{" "}
         and we&apos;ll help you find your fit.

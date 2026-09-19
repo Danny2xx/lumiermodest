@@ -12,9 +12,8 @@ export default async function LastChancePage() {
     <div className="bg-espresso">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <CollectionHeader
-          eyebrow="Final Stock"
-          title="last chance"
-          subtitle="A final opportunity to claim the pieces you loved — before they leave the collection for good."
+          title="Last chance"
+          subtitle="The last of a piece, at a lower price. When these are gone we don't usually make them again."
           dark
         />
         {saleProducts.length === 0 ? (

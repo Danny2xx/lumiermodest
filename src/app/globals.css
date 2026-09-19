@@ -8,6 +8,10 @@
   --color-taupe-dark: #5c4530;
   --color-espresso: #3c2c20;
   --color-gold: #b08d57;
+  /* Gold is a decorative colour: as text on cream it only reaches 2.85:1.
+     This darker one keeps the hue and passes 4.5:1 on every light surface,
+     for links and anything else people have to read. */
+  --color-gold-ink: #725c39;
 }
 
 @theme inline {
@@ -18,6 +22,7 @@
   --color-taupe-dark: var(--color-taupe-dark);
   --color-espresso: var(--color-espresso);
   --color-gold: var(--color-gold);
+  --color-gold-ink: var(--color-gold-ink);
   --font-serif: var(--font-cormorant);
   --font-script: var(--font-parisienne);
   --font-sans: var(--font-jost);
@@ -27,4 +32,21 @@ body {
   background: var(--color-cream);
   color: var(--color-espresso);
   font-family: var(--font-jost), Arial, Helvetica, sans-serif;
+}
+
+/*
+ * Respect the operating system's "reduce motion" setting. Vestibular
+ * disorders and migraine are triggered by movement, and the homepage
+ * slideshow moves on its own. Animations become near-instant rather than
+ * being removed, so nothing that relies on a transition ending breaks.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

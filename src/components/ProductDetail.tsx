@@ -111,7 +111,7 @@ export default function ProductDetail({ product }: { product: Product }) {
         <h1 className="font-serif text-4xl text-taupe-dark">{product.name}</h1>
         <p className="mt-2 font-sans text-lg text-espresso">
           {product.originalPrice && (
-            <span className="mr-2 line-through text-espresso/70">
+            <span className="mr-2 line-through text-espresso/80">
               {money(product.originalPrice)}
             </span>
           )}
@@ -197,7 +197,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           <div className="mt-8 flex items-center gap-3">
             <button
               disabled
-              className="flex-1 cursor-not-allowed border border-taupe/40 py-4 font-sans text-xs uppercase tracking-[0.18em] text-espresso/60"
+              className="flex-1 cursor-not-allowed border border-taupe/40 py-4 font-sans text-xs uppercase tracking-[0.18em] text-espresso/80"
             >
               Sold out
             </button>
@@ -213,17 +213,17 @@ export default function ProductDetail({ product }: { product: Product }) {
           <p>
             UK delivery {money(SHIPPING_RATES[0].amount)}, free over £
             {FREE_SHIPPING_THRESHOLD} — 3–5 working days.{" "}
-            <Link href="/shipping" className="underline hover:text-gold">
+            <Link href="/shipping" className="underline hover:text-gold-ink">
               Delivery details
             </Link>
           </p>
           <p>
             14 days to change your mind.{" "}
-            <Link href="/returns" className="underline hover:text-gold">
+            <Link href="/returns" className="underline hover:text-gold-ink">
               Returns
             </Link>{" "}
             ·{" "}
-            <Link href="/sizing" className="underline hover:text-gold">
+            <Link href="/sizing" className="underline hover:text-gold-ink">
               Sizing guide
             </Link>
           </p>

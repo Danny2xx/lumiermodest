@@ -28,7 +28,7 @@ export default async function AdminDashboard() {
 
       <div className="mt-8 divide-y divide-taupe/15 border-y border-taupe/15">
         {products.length === 0 && (
-          <p className="py-10 text-center font-sans text-sm text-espresso/60">
+          <p className="py-10 text-center font-sans text-sm text-espresso/80">
             No products yet.
           </p>
         )}
@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
             </div>
             <div className="flex-1">
               <p className="font-serif text-lg text-espresso">{p.name}</p>
-              <p className="font-sans text-xs uppercase tracking-wide text-espresso/50">
+              <p className="font-sans text-xs uppercase tracking-wide text-espresso/80">
                 {categoryName.get(p.category) ?? p.category} · £{p.price.toString()}
                 {p.originalPrice ? ` (was £${p.originalPrice.toString()})` : ""}
                 {!p.inStock ? " · Sold out" : ""}
@@ -55,7 +55,7 @@ export default async function AdminDashboard() {
             </div>
             <Link
               href={`/admin/products/${p.id}/edit`}
-              className="font-sans text-xs uppercase tracking-wide text-espresso/70 underline hover:text-gold"
+              className="font-sans text-xs uppercase tracking-wide text-espresso/80 underline hover:text-gold-ink"
             >
               Edit
             </Link>

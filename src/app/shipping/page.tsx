@@ -1,13 +1,14 @@
+import Link from "next/link";
 import ContentPage, {
   SectionHeading,
   NeedHelp,
 } from "@/components/ContentPage";
 
-export const metadata = { title: "Shipping Policy — LumierModest" };
+export const metadata = { title: "Delivery — LumierModest" };
 
 export default function ShippingPage() {
   return (
-    <ContentPage title="Shipping Policy">
+    <ContentPage title="Delivery">
       <SectionHeading>Where We Ship</SectionHeading>
       <p>
         We currently ship across the United Kingdom only. We&apos;re working
@@ -42,15 +43,12 @@ export default function ShippingPage() {
         delivery investigation, and we&apos;re happy to help coordinate.
       </p>
 
-      <p className="text-xs text-espresso/50">
-        Placeholder rates — confirm real carrier pricing before launch.
-      </p>
 
       <NeedHelp>
         If you have any questions about shipping, reach out via our{" "}
-        <a href="/contact" className="underline">
+        <Link href="/contact" className="underline hover:text-gold-ink">
           contact page
-        </a>
+        </Link>
         . We&apos;re happy to assist.
       </NeedHelp>
     </ContentPage>

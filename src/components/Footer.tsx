@@ -36,27 +36,26 @@ export default function Footer() {
     <footer className="border-t border-taupe/15 bg-sand">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2">
         <div className="flex flex-col gap-3 font-sans text-sm uppercase tracking-[0.14em] text-espresso/80">
-          <Link href="/about" className="transition-colors hover:text-gold">
+          <Link href="/about" className="transition-colors hover:text-gold-ink">
             About
           </Link>
-          <Link href="/sizing" className="transition-colors hover:text-gold">
+          <Link href="/sizing" className="transition-colors hover:text-gold-ink">
             Sizing Guide
           </Link>
-          <Link href="/shipping" className="transition-colors hover:text-gold">
-            Shipping Policy
+          <Link href="/shipping" className="transition-colors hover:text-gold-ink">
+            Delivery
           </Link>
-          <Link href="/returns" className="transition-colors hover:text-gold">
-            Refund Policy
+          <Link href="/returns" className="transition-colors hover:text-gold-ink">
+            Returns
           </Link>
-          <Link href="/contact" className="transition-colors hover:text-gold">
+          <Link href="/contact" className="transition-colors hover:text-gold-ink">
             Contact
           </Link>
         </div>
 
         <div>
           <p className="mb-4 font-serif italic text-xl text-taupe-dark">
-            Be the first to know — early access, exclusive previews &amp;
-            special offers
+            New pieces and restocks, before they reach the shop
           </p>
           <FooterNewsletterForm />
         </div>
@@ -73,23 +72,14 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-taupe/15 px-6 py-6">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 font-sans text-xs text-espresso/60 md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 font-sans text-xs text-espresso/80 md:flex-row">
           <p>© {new Date().getFullYear()} LumierModest. All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
-            <Link href="/privacy" className="transition-colors hover:text-gold">
-              Privacy policy
+            <Link href="/privacy" className="transition-colors hover:text-gold-ink">
+              Privacy
             </Link>
-            <Link href="/returns" className="transition-colors hover:text-gold">
-              Refund policy
-            </Link>
-            <Link href="/terms" className="transition-colors hover:text-gold">
-              Terms of service
-            </Link>
-            <Link href="/shipping" className="transition-colors hover:text-gold">
-              Shipping policy
-            </Link>
-            <Link href="/contact" className="transition-colors hover:text-gold">
-              Contact information
+            <Link href="/terms" className="transition-colors hover:text-gold-ink">
+              Terms
             </Link>
             <CookiePreferences />
           </div>
@@ -99,7 +89,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="transition-colors hover:text-gold"
+              className="transition-colors hover:text-gold-ink"
             >
               <WhatsAppIcon />
             </a>
@@ -108,7 +98,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="transition-colors hover:text-gold"
+              className="transition-colors hover:text-gold-ink"
             >
               <InstagramIcon />
             </a>
@@ -117,7 +107,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="transition-colors hover:text-gold"
+              className="transition-colors hover:text-gold-ink"
             >
               <TikTokIcon />
             </a>

@@ -125,21 +125,21 @@ export default function Nav({
           <button
             onClick={() => setSearchOpen(true)}
             aria-label="Search"
-            className="transition-colors hover:text-gold"
+            className="transition-colors hover:text-gold-ink"
           >
             <SearchIcon />
           </button>
           <Link
             href="/account"
             aria-label="Account"
-            className="transition-colors hover:text-gold"
+            className="transition-colors hover:text-gold-ink"
           >
             <AccountIcon />
           </Link>
           <button
             onClick={openWishlist}
             aria-label="Open wishlist"
-            className="relative transition-colors hover:text-gold"
+            className="relative transition-colors hover:text-gold-ink"
           >
             <HeartIcon />
             {wishlistCount > 0 && (
@@ -151,7 +151,7 @@ export default function Nav({
           <button
             onClick={open}
             aria-label="Open cart"
-            className="relative transition-colors hover:text-gold"
+            className="relative transition-colors hover:text-gold-ink"
           >
             <BagIcon />
             {count > 0 && (
@@ -175,7 +175,7 @@ export default function Nav({
           <Link
             key={l.href}
             href={l.href}
-            className="relative whitespace-nowrap pb-1 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:text-gold hover:after:w-full"
+            className="relative whitespace-nowrap pb-1 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:text-gold-ink hover:after:w-full"
           >
             {l.label}
           </Link>

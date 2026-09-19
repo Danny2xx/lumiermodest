@@ -68,7 +68,7 @@ export default function ContactForm() {
       >
         Send Message
       </button>
-      <p className="font-sans text-xs text-espresso/50">
+      <p className="font-sans text-xs text-espresso/80">
         Sending opens your email app with this message pre-filled to{" "}
         {SUPPORT_EMAIL}.
       </p>

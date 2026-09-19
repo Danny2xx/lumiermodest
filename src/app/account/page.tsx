@@ -125,7 +125,7 @@ export default async function AccountPage() {
                 Delivery is shown on your emailed receipt. Reference{" "}
                 <span className="font-semibold text-espresso">{order.id}</span> —
                 quote it if you{" "}
-                <Link href="/contact" className="underline hover:text-gold">
+                <Link href="/contact" className="underline hover:text-gold-ink">
                   get in touch
                 </Link>
                 .

@@ -6,7 +6,7 @@ import type { Category } from "@/lib/categories";
 const inputClass =
   "w-full border border-taupe/30 bg-transparent px-4 py-3 font-sans text-sm focus:outline-none focus:border-taupe";
 const labelClass =
-  "mb-1.5 block font-sans text-xs uppercase tracking-wide text-espresso/60";
+  "mb-1.5 block font-sans text-xs uppercase tracking-wide text-espresso/80";
 
 export default function CategoryForm({
   category,
@@ -35,7 +35,7 @@ export default function CategoryForm({
           className={inputClass}
         />
         {category && (
-          <p className="mt-1 font-sans text-xs text-espresso/50">
+          <p className="mt-1 font-sans text-xs text-espresso/80">
             URL: /{category.slug} (can&apos;t be changed after creation)
           </p>
         )}

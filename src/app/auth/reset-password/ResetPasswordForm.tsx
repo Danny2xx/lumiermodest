@@ -14,7 +14,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
     return (
       <p className="mt-8 text-center font-sans text-sm text-espresso/80">
         This reset link is invalid or has expired.{" "}
-        <Link href="/auth/forgot-password" className="underline hover:text-gold">
+        <Link href="/auth/forgot-password" className="underline hover:text-gold-ink">
           Request a new one
         </Link>
         .

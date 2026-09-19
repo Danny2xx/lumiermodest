@@ -45,7 +45,7 @@ export default function TrustBadges() {
             <p className="font-sans text-xs uppercase tracking-[0.14em] text-espresso">
               {title}
             </p>
-            <p className="font-sans text-xs text-espresso/60">{subtitle}</p>
+            <p className="font-sans text-xs text-espresso/80">{subtitle}</p>
           </div>
         ))}
       </div>

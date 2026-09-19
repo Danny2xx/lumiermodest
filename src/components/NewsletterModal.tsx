@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState, useActionState } from "react";
+import { usePathname } from "next/navigation";
 import { subscribeToNewsletter } from "@/lib/newsletter";
 
 const STORAGE_KEY = "lumiermodest-newsletter-seen";
 
 export default function NewsletterModal() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [state, formAction, isPending] = useActionState(
     subscribeToNewsletter.bind(null, "modal"),
@@ -21,9 +23,12 @@ export default function NewsletterModal() {
       // ignore
     }
     if (seen) return;
-    const timer = setTimeout(() => setOpen(true), 4000);
+    // Never interrupt someone who is buying, signing in, or running the shop.
+    if (/^\/(checkout|admin|auth)/.test(pathname)) return;
+    // 20 seconds, not 4: long enough to have actually seen something first.
+    const timer = setTimeout(() => setOpen(true), 20000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   const dismiss = () => {
     setOpen(false);
@@ -48,7 +53,7 @@ export default function NewsletterModal() {
         <button
           onClick={dismiss}
           aria-label="Close"
-          className="absolute right-4 top-4 text-lg text-espresso/60"
+          className="absolute right-4 top-4 text-lg text-espresso/80"
         >
           ×
         </button>
@@ -58,19 +63,19 @@ export default function NewsletterModal() {
             <p className="font-serif italic text-3xl text-taupe-dark">
               Thank you
             </p>
-            <p className="mt-3 font-sans text-sm text-espresso/70">
-              You&apos;re on the list — early access and offers will land in
-              your inbox.
+            <p className="mt-3 font-sans text-sm text-espresso/80">
+              You&apos;re on the list. We&apos;ll write before the next pieces
+              go up.
             </p>
           </>
         ) : (
           <>
             <p className="font-serif italic tracking-tight text-4xl text-taupe-dark">
-              10% off, for you
+              See it first
             </p>
-            <p className="mt-3 font-sans text-sm text-espresso/70">
-              Sign up for early access to new collections, restocks, and
-              exclusive offers.
+            <p className="mt-3 font-sans text-sm text-espresso/80">
+              New pieces and restocks often go in small numbers. Leave your
+              email and we&apos;ll tell you before they reach the shop.
             </p>
             <form
               action={(formData) => {
@@ -98,7 +103,7 @@ export default function NewsletterModal() {
                 disabled={isPending}
                 className="bg-taupe-dark py-3 font-sans text-xs uppercase tracking-[0.18em] text-cream transition-all duration-200 hover:scale-[1.02] hover:bg-espresso disabled:opacity-60"
               >
-                {isPending ? "Submitting…" : "Subscribe"}
+                {isPending ? "Adding you…" : "Keep me posted"}
               </button>
             </form>
           </>

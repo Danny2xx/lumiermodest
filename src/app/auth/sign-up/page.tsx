@@ -17,7 +17,7 @@ export default function SignUpPage() {
         Create an account
       </h1>
       <Flourish className="mt-4" />
-      <p className="mt-6 text-center font-sans text-sm text-espresso/70">
+      <p className="mt-6 text-center font-sans text-sm text-espresso/80">
         Save your details for faster checkout and keep track of your orders.
       </p>
 
@@ -56,9 +56,9 @@ export default function SignUpPage() {
         </button>
       </form>
 
-      <p className="mt-6 text-center font-sans text-xs text-espresso/60">
+      <p className="mt-6 text-center font-sans text-xs text-espresso/80">
         Already have an account?{" "}
-        <Link href="/auth/sign-in" className="underline hover:text-gold">
+        <Link href="/auth/sign-in" className="underline hover:text-gold-ink">
           Sign in
         </Link>
       </p>
