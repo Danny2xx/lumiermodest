@@ -17,21 +17,22 @@ type Slide = {
   right: string;
 };
 
+// From the first collection's shoot. Phones only show the centre column.
 const slides: Slide[] = [
   {
-    left: "/campaign/espresso-silk.jpg",
-    center: "/campaign/ivory-silk.jpg",
-    right: "/campaign/gold-thread.jpg",
+    left: "/campaign/hero-lumier.jpg",
+    center: "/campaign/hero-yasmin.jpg",
+    right: "/campaign/hero-yarah.jpg",
   },
   {
-    left: "/campaign/fabric-swatches.jpg",
-    center: "/campaign/gold-silk.jpg",
-    right: "/campaign/espresso-silk.jpg",
+    left: "/campaign/hero-muna.jpg",
+    center: "/campaign/hero-layla.jpg",
+    right: "/campaign/hero-yarah-red.jpg",
   },
   {
-    left: "/campaign/gold-silk.jpg",
-    center: "/campaign/fabric-swatches.jpg",
-    right: "/campaign/ivory-silk.jpg",
+    left: "/campaign/hero-satin.jpg",
+    center: "/campaign/hero-shimmer.jpg",
+    right: "/campaign/hero-jersey.jpg",
   },
 ];
 

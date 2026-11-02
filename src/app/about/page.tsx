@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BrandStamp from "@/components/BrandStamp";
 import Flourish from "@/components/Flourish";
 import Reveal from "@/components/motion/Reveal";
@@ -47,6 +48,26 @@ export default function AboutPage() {
             not months.
           </p>
         </StaggerItem>
+        <StaggerItem as="div" className="grid grid-cols-2 gap-3 py-4 sm:gap-4">
+          <div className="relative aspect-[2/3] overflow-hidden bg-sand">
+            <Image
+              src="/campaign/about-breaking-news.jpg"
+              alt="A model in the red Yarah abaya reading a newspaper headlined 'Lumier Modest is here!'"
+              fill
+              sizes="(min-width: 768px) 380px, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="relative aspect-[2/3] overflow-hidden bg-sand">
+            <Image
+              src="/campaign/about-on-call.jpg"
+              alt="A model in the Yasmin abaya taking a call while hands pass her a coffee, a tablet and paperwork"
+              fill
+              sizes="(min-width: 768px) 380px, 50vw"
+              className="object-cover"
+            />
+          </div>
+        </StaggerItem>
         <StaggerItem as="div">
           <p>
             Every piece is chosen to do two things at once:{" "}
@@ -63,6 +84,17 @@ export default function AboutPage() {
             label in the open — new colourways, new silhouettes, and better
             fabrics as we learn what you actually wear on repeat.
           </p>
+        </StaggerItem>
+        <StaggerItem as="div" className="py-4">
+          <div className="relative aspect-[3/2] overflow-hidden bg-sand">
+            <Image
+              src="/campaign/about-behind-the-scenes.jpg"
+              alt="Behind the scenes at the shoot: two models getting ready at a lit mirror"
+              fill
+              sizes="(min-width: 768px) 768px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </StaggerItem>
         <StaggerItem as="div">
           <p>Thank you for being here.</p>

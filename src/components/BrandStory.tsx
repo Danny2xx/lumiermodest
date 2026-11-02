@@ -4,7 +4,18 @@ import SplitText from "./motion/SplitText";
 export default function BrandStory() {
   return (
     <section className="relative flex h-[50vh] min-h-[320px] items-end overflow-hidden">
-      <ParallaxImage src="/campaign/gold-thread.jpg" alt="Gold thread detail" />
+      {/* The banner is wide on desktop but nearly square on phones, where a
+          centred crop of the pair would show only the curtain between them. */}
+      <ParallaxImage
+        src="/campaign/story-wide.jpg"
+        alt="Two women seated in the Yasmin abaya"
+        className="hidden md:block"
+      />
+      <ParallaxImage
+        src="/campaign/story-mobile.jpg"
+        alt="A woman seated in the Yasmin abaya"
+        className="md:hidden"
+      />
       <div className="absolute inset-0 bg-espresso/50" />
       <SplitText
         text="Made with care, made to be remembered."
