@@ -24,6 +24,7 @@ type CartContextValue = {
   addItem: (product: Product, size: string) => void;
   removeItem: (slug: string, size: string) => void;
   updateQty: (slug: string, size: string, qty: number) => void;
+  clear: () => void;
   subtotal: number;
   count: number;
 };
@@ -84,6 +85,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const clear = () => {
+    setLines([]);
+    // Also drop the stored copy, so this works whether it runs before or
+    // after the hydration effect above.
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore unavailable storage
+    }
+  };
+
   const subtotal = useMemo(
     () => lines.reduce((sum, l) => sum + l.product.price * l.qty, 0),
     [lines]
@@ -103,6 +115,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addItem,
         removeItem,
         updateQty,
+        clear,
         subtotal,
         count,
       }}
