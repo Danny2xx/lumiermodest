@@ -2,22 +2,22 @@
 
 import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
-import { DURATION, EASE } from "./config";
+import { DURATION, EASE, TEMPO } from "./config";
 
 type Tag = "div" | "section" | "ul" | "ol" | "li" | "span" | "nav";
 
 const itemVariants: Record<"up" | "fade" | "scale", Variants> = {
   up: {
     hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: DURATION.base, ease: EASE } },
+    show: { opacity: 1, y: 0, transition: { duration: DURATION.base * TEMPO, ease: EASE } },
   },
   fade: {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: DURATION.base, ease: EASE } },
+    show: { opacity: 1, transition: { duration: DURATION.base * TEMPO, ease: EASE } },
   },
   scale: {
     hidden: { opacity: 0, scale: 0.94 },
-    show: { opacity: 1, scale: 1, transition: { duration: DURATION.base, ease: EASE } },
+    show: { opacity: 1, scale: 1, transition: { duration: DURATION.base * TEMPO, ease: EASE } },
   },
 };
 
@@ -58,7 +58,7 @@ export function Stagger({
       {...animateProps}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: delay } },
+        show: { transition: { staggerChildren: stagger * TEMPO, delayChildren: delay * TEMPO } },
       }}
       className={className}
     >

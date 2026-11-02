@@ -6,6 +6,13 @@ import CategoryProductGrid from "@/components/CategoryProductGrid";
 
 export const revalidate = 60;
 
+// An empty list still opts the route into caching: each category is built on
+// its first visit and reused for a minute, instead of hitting the database on
+// every request. Admin edits refresh it immediately via revalidatePath.
+export function generateStaticParams() {
+  return [];
+}
+
 export async function generateMetadata({
   params,
 }: {

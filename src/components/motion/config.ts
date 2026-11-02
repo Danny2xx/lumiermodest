@@ -8,6 +8,13 @@ export const DURATION = {
   slow: 0.9,
 } as const;
 
+/**
+ * Scales every entrance animation's duration, delay and stagger. Entrances
+ * hide content until they finish, so long ones make the site feel slow to
+ * load even when it isn't. Interactions (drawers, buttons) aren't affected.
+ */
+export const TEMPO = 0.5;
+
 export const SPRING = {
   drawer: { type: "spring", stiffness: 320, damping: 34, mass: 0.9 },
   pop: { type: "spring", stiffness: 500, damping: 26 },

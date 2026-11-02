@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
-import { DURATION, EASE } from "./config";
+import { DURATION, EASE, TEMPO } from "./config";
 
 type Tag = "div" | "section" | "p" | "h1" | "h2" | "h3" | "span" | "li" | "figure" | "header";
 type Variant = "up" | "down" | "fade" | "scale" | "blur" | "left" | "right";
@@ -62,7 +62,7 @@ export default function Reveal({
       initial="hidden"
       {...animateProps}
       variants={variants[variant]}
-      transition={{ duration, delay, ease: EASE }}
+      transition={{ duration: duration * TEMPO, delay: delay * TEMPO, ease: EASE }}
       className={className}
     >
       {children}

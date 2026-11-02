@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { DURATION, EASE } from "./config";
+import { DURATION, EASE, TEMPO } from "./config";
 
 type Tag = "h1" | "h2" | "h3" | "p" | "span" | "div";
 
@@ -53,7 +53,7 @@ export default function SplitText({
           hidden: { y: "120%", opacity: 0, rotate: 2 },
           show: { y: 0, opacity: 1, rotate: 0 },
         }}
-        transition={{ duration, ease: EASE }}
+        transition={{ duration: duration * TEMPO, ease: EASE }}
       >
         {content}
       </motion.span>
@@ -67,7 +67,7 @@ export default function SplitText({
       {...animateProps}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: delay } },
+        show: { transition: { staggerChildren: stagger * TEMPO, delayChildren: delay * TEMPO } },
       }}
       className={className}
     >

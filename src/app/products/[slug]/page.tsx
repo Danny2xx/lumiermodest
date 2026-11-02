@@ -3,6 +3,13 @@ import { getProductBySlug, getRelatedProducts } from "@/lib/products";
 import ProductDetail from "@/components/ProductDetail";
 import RelatedProducts from "@/components/RelatedProducts";
 
+export const revalidate = 60;
+
+// Same caching as category pages: built on first visit, reused for a minute.
+export function generateStaticParams() {
+  return [];
+}
+
 /** Without this, every product shared the site's single default tab title. */
 export async function generateMetadata({
   params,

@@ -57,9 +57,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Runs before first paint: skips the brand intro on repeat visits this session
+// Runs before first paint: skips the brand intro for anyone who has seen it
 // and for visitors who prefer reduced motion.
-const introScript = `(function(){try{if(sessionStorage.getItem(${JSON.stringify(
+const introScript = `(function(){try{if(localStorage.getItem(${JSON.stringify(
   INTRO_STORAGE_KEY
 )})==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.setAttribute("data-intro-seen","")}}catch(e){}})()`;
 

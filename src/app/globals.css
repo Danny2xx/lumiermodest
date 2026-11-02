@@ -35,7 +35,7 @@
   --animate-shimmer: shimmer 1.8s linear infinite;
   --animate-marquee: marquee 32s linear infinite;
   --animate-twinkle: twinkle 2.8s ease-in-out infinite;
-  --animate-page-enter: page-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-page-enter: page-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   --animate-slide-progress: slide-progress 5s linear forwards;
   --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   --animate-spin-slow: spin 1.4s linear infinite;
@@ -164,14 +164,13 @@ body {
   font-family: var(--font-jost), Arial, Helvetica, sans-serif;
 }
 
-/* Brand intro: hidden instantly when already seen this session (an inline
-   script sets the attribute before paint), and force-hidden after 4s if JS
-   never runs. */
+/* Brand intro: hidden instantly when already seen (an inline script sets
+   the attribute before paint), and force-hidden after 2s if JS never runs. */
 html[data-intro-seen] #lm-preloader {
   display: none;
 }
 #lm-preloader {
-  animation: preloader-fallback 0s 4s forwards;
+  animation: preloader-fallback 0s 2s forwards;
 }
 
 /*

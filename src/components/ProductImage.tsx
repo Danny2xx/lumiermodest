@@ -31,8 +31,23 @@ export default function ProductImage({
   const zoomClass = zoom ? "group-hover:scale-105" : "";
 
   if (src) {
+    // A 32px copy (well under 1KB) arrives almost at once and is shown
+    // blurred, so there's a soft version of the photo while the full one
+    // loads instead of an empty box. 32 and 75 are the smallest width and
+    // the only quality the image optimiser allows by default.
+    const preview = `/_next/image?url=${encodeURIComponent(src)}&w=32&q=75`;
     return (
-      <div className={`relative overflow-hidden bg-sand/60 ${className}`}>
+      <div
+        className={`relative overflow-hidden ${className}`}
+        style={{
+          backgroundImage: `linear-gradient(160deg, ${swatch[0]}, ${swatch[1]})`,
+        }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 scale-110 bg-cover bg-center blur-xl"
+          style={{ backgroundImage: `url(${preview})` }}
+        />
         <Image
           src={src}
           alt={alt}
@@ -40,7 +55,7 @@ export default function ProductImage({
           priority={priority}
           sizes={sizes ?? "(min-width: 1024px) 33vw, 100vw"}
           onLoad={() => setLoaded(true)}
-          className={`object-cover transition-[opacity,transform] duration-700 ease-luxe ${
+          className={`object-cover transition-[opacity,transform] duration-300 ease-luxe ${
             loaded ? "opacity-100" : "opacity-0"
           } ${zoomClass}`}
         />
