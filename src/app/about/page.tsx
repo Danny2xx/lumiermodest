@@ -42,10 +42,10 @@ export default function AboutPage() {
         </StaggerItem>
         <StaggerItem as="div">
           <p>
-            We wanted something different — abayas and hijabs designed with
-            the same care as any London fashion label, cut for how women here
-            actually move through their day, and in your hands within days,
-            not months.
+            We wanted something different — abayas and hijabs designed in
+            Birmingham with the same care as any London fashion label, cut for
+            how women here actually move through their day, and in your hands
+            within days, not months.
           </p>
         </StaggerItem>
         <StaggerItem as="div" className="grid grid-cols-2 gap-3 py-4 sm:gap-4">

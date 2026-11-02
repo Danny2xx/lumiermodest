@@ -5,6 +5,7 @@ import BrandStory from "@/components/BrandStory";
 import FAQSection from "@/components/FAQSection";
 import CommunityBand from "@/components/CommunityBand";
 import NewCollection from "@/components/NewCollection";
+import BrandMoments from "@/components/BrandMoments";
 import { getAllProducts } from "@/lib/products";
 
 export const revalidate = 60;
@@ -27,6 +28,7 @@ export default async function Home() {
       <Hero shopHref={shopHref} />
       <NewCollection links={collectionLinks} />
       <FeaturedGrid />
+      <BrandMoments />
       <BrandStory />
       <FAQSection />
       <CommunityBand />
