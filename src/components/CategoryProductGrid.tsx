@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
 import { Product } from "@/lib/products";
 import ProductCard from "./ProductCard";
 import ProductImage from "./ProductImage";
+import { EASE } from "./motion/config";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "name";
 type Availability = "all" | "in-stock" | "sold-out";
@@ -62,8 +64,10 @@ export default function CategoryProductGrid({
     return sorted;
   }, [products, size, availability, sort]);
 
-  const controlClass = `border bg-transparent px-2 py-1 normal-case tracking-normal ${
-    dark ? "border-cream/30 text-cream" : "border-taupe/30 text-espresso"
+  const controlClass = `border bg-transparent px-2 py-1 normal-case tracking-normal transition-colors ${
+    dark
+      ? "border-cream/30 text-cream hover:border-cream/60"
+      : "border-taupe/30 text-espresso hover:border-taupe"
   }`;
   const labelClass = `font-sans text-xs uppercase tracking-[0.1em] ${
     dark ? "text-cream/70" : "text-espresso/70"
@@ -117,21 +121,46 @@ export default function CategoryProductGrid({
         </div>
 
         <div className="flex items-center gap-4">
-          <span className={labelClass}>
-            {visible.length} item{visible.length === 1 ? "" : "s"}
+          <span className={labelClass} aria-live="polite">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={visible.length}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25 }}
+                className="inline-block"
+              >
+                {visible.length} item{visible.length === 1 ? "" : "s"}
+              </motion.span>
+            </AnimatePresence>
           </span>
           <div className={`flex gap-2 ${dark ? "text-cream" : "text-espresso"}`}>
             <button
               onClick={() => setView("grid")}
               aria-label="Grid view"
-              className={view === "grid" ? (dark ? "text-gold" : "text-taupe-dark") : "opacity-40"}
+              aria-pressed={view === "grid"}
+              className={`transition-opacity ${
+                view === "grid"
+                  ? dark
+                    ? "text-gold"
+                    : "text-taupe-dark"
+                  : "opacity-40 hover:opacity-70"
+              }`}
             >
               <GridIcon />
             </button>
             <button
               onClick={() => setView("list")}
               aria-label="List view"
-              className={view === "list" ? (dark ? "text-gold" : "text-taupe-dark") : "opacity-40"}
+              aria-pressed={view === "list"}
+              className={`transition-opacity ${
+                view === "list"
+                  ? dark
+                    ? "text-gold"
+                    : "text-taupe-dark"
+                  : "opacity-40 hover:opacity-70"
+              }`}
             >
               <ListIcon />
             </button>
@@ -140,61 +169,96 @@ export default function CategoryProductGrid({
       </div>
 
       {visible.length === 0 ? (
-        <p className={`py-16 text-center font-sans text-sm ${dark ? "text-cream/60" : "text-espresso/60"}`}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className={`py-16 text-center font-sans text-sm ${dark ? "text-cream/60" : "text-espresso/60"}`}
+        >
           No items match this filter.
-        </p>
+        </motion.p>
       ) : view === "grid" ? (
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((p) => (
-            <ProductCard key={p.id} product={p} dark={dark} />
-          ))}
-        </div>
-      ) : (
-        <ul className={`divide-y ${dark ? "divide-cream/15" : "divide-taupe/15"}`}>
-          {visible.map((p) => (
-            <li key={p.id}>
-              <Link
-                href={`/products/${p.slug}`}
-                className={`flex items-center gap-6 py-5 ${
-                  dark ? "hover:bg-cream/5" : "hover:bg-blush/40"
-                }`}
+        <motion.div layout className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {visible.map((p, i) => (
+              <motion.div
+                key={p.id}
+                layout
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{
+                  opacity: { duration: 0.6, ease: EASE, delay: Math.min(i, 8) * 0.05 },
+                  y: { duration: 0.6, ease: EASE, delay: Math.min(i, 8) * 0.05 },
+                  scale: { duration: 0.25 },
+                  layout: { duration: 0.5, ease: EASE },
+                }}
               >
-                <div className="relative flex-shrink-0">
-                  <ProductImage
-                    src={p.images?.[0]}
-                    swatch={p.swatch}
-                    alt={p.name}
-                    sizes="80px"
-                    className="h-24 w-20"
-                  />
-                  {!p.inStock && (
-                    <span className="absolute left-1 top-1 bg-espresso px-1.5 py-0.5 font-sans text-[8px] uppercase tracking-wide text-cream">
-                      Sold Out
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-1 items-center justify-between">
-                  <div>
-                    <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>
-                      {p.name}
-                    </p>
-                    <p className={`font-sans text-xs ${dark ? "text-cream/60" : "text-espresso/60"}`}>
-                      {p.sizes.join(" · ")}
-                    </p>
-                  </div>
-                  <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/70"}`}>
-                    {p.originalPrice && (
-                      <span className={`mr-2 line-through ${dark ? "text-cream/40" : "text-espresso/40"}`}>
-                        £{p.originalPrice.toFixed(2)}
+                <ProductCard product={p} dark={dark} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      ) : (
+        <motion.ul layout className={`divide-y ${dark ? "divide-cream/15" : "divide-taupe/15"}`}>
+          <AnimatePresence mode="popLayout">
+            {visible.map((p, i) => (
+              <motion.li
+                key={p.id}
+                layout
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{
+                  duration: 0.4,
+                  ease: EASE,
+                  delay: Math.min(i, 8) * 0.04,
+                  layout: { duration: 0.4, ease: EASE },
+                }}
+              >
+                <Link
+                  href={`/products/${p.slug}`}
+                  className={`group flex items-center gap-6 py-5 transition-colors ${
+                    dark ? "hover:bg-cream/5" : "hover:bg-blush/40"
+                  }`}
+                >
+                  <div className="relative flex-shrink-0">
+                    <ProductImage
+                      src={p.images?.[0]}
+                      swatch={p.swatch}
+                      alt={p.name}
+                      sizes="80px"
+                      zoom
+                      className="h-24 w-20"
+                    />
+                    {!p.inStock && (
+                      <span className="absolute left-1 top-1 bg-espresso px-1.5 py-0.5 font-sans text-[8px] uppercase tracking-wide text-cream">
+                        Sold Out
                       </span>
                     )}
-                    £{p.price.toFixed(2)} GBP
-                  </p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                  </div>
+                  <div className="flex flex-1 items-center justify-between">
+                    <div>
+                      <p className={`font-serif text-lg ${dark ? "text-cream" : "text-espresso"}`}>
+                        {p.name}
+                      </p>
+                      <p className={`font-sans text-xs ${dark ? "text-cream/60" : "text-espresso/60"}`}>
+                        {p.sizes.join(" · ")}
+                      </p>
+                    </div>
+                    <p className={`font-sans text-sm ${dark ? "text-cream/70" : "text-espresso/70"}`}>
+                      {p.originalPrice && (
+                        <span className={`mr-2 line-through ${dark ? "text-cream/40" : "text-espresso/40"}`}>
+                          £{p.originalPrice.toFixed(2)}
+                        </span>
+                      )}
+                      £{p.price.toFixed(2)} GBP
+                    </p>
+                  </div>
+                </Link>
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </motion.ul>
       )}
     </div>
   );

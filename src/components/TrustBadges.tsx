@@ -1,3 +1,5 @@
+import { Stagger, StaggerItem } from "./motion/Stagger";
+
 function LockIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
@@ -36,19 +38,22 @@ const badges = [
 export default function TrustBadges() {
   return (
     <section className="border-t border-taupe/15 bg-blush/40">
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-10 text-center sm:grid-cols-3">
+      <Stagger
+        className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-10 text-center sm:grid-cols-3"
+        stagger={0.12}
+      >
         {badges.map(({ icon: Icon, title, subtitle }) => (
-          <div key={title} className="flex flex-col items-center gap-2">
-            <div className="text-taupe-dark">
+          <StaggerItem key={title} className="group flex flex-col items-center gap-2">
+            <div className="text-taupe-dark transition-transform duration-500 ease-luxe group-hover:-translate-y-1 group-hover:text-gold">
               <Icon />
             </div>
             <p className="font-sans text-xs uppercase tracking-[0.14em] text-espresso">
               {title}
             </p>
             <p className="font-sans text-xs text-espresso/60">{subtitle}</p>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </section>
   );
 }

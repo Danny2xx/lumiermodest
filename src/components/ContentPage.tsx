@@ -1,5 +1,7 @@
 import BrandStamp from "./BrandStamp";
 import Flourish from "./Flourish";
+import Reveal from "./motion/Reveal";
+import SplitText from "./motion/SplitText";
 
 export default function ContentPage({
   title,
@@ -12,14 +14,23 @@ export default function ContentPage({
 }) {
   return (
     <div className="relative mx-auto max-w-3xl px-6 py-20">
-      {stamp && <BrandStamp className="absolute right-6 top-4" />}
-      <h1 className="font-serif italic tracking-tight text-5xl text-taupe-dark">
-        {title}
-      </h1>
-      <Flourish className="mt-4" align="start" />
-      <div className="mt-8 space-y-5 font-sans text-sm leading-relaxed text-espresso/80">
+      {stamp && (
+        <Reveal mode="mount" variant="scale" delay={0.6}>
+          <BrandStamp className="absolute right-6 top-4" />
+        </Reveal>
+      )}
+      <SplitText
+        text={title}
+        as="h1"
+        mode="mount"
+        delay={0.1}
+        stagger={0.1}
+        className="font-serif italic tracking-tight text-5xl text-taupe-dark"
+      />
+      <Flourish className="mt-4" align="start" draw />
+      <Reveal mode="mount" delay={0.5} className="mt-8 space-y-5 font-sans text-sm leading-relaxed text-espresso/80">
         {children}
-      </div>
+      </Reveal>
     </div>
   );
 }

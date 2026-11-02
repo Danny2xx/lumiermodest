@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { EASE } from "./motion/config";
 
 export default function Accordion({
   title,
@@ -17,20 +19,38 @@ export default function Accordion({
     <div className="border-b border-taupe/20 py-4">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between font-sans text-xs uppercase tracking-[0.14em] text-espresso"
+        aria-expanded={open}
+        className="flex w-full items-center justify-between font-sans text-xs uppercase tracking-[0.14em] text-espresso transition-colors hover:text-taupe-dark"
       >
         {title}
-        <span
-          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        <motion.span
+          aria-hidden
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.35, ease: EASE }}
+          className="inline-block"
         >
           ▾
-        </span>
+        </motion.span>
       </button>
-      {open && (
-        <div className="mt-3 font-sans text-sm leading-relaxed text-espresso/80">
-          {children}
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.4, ease: EASE },
+              opacity: { duration: 0.3, ease: EASE },
+            }}
+            className="overflow-hidden"
+          >
+            <div className="pt-3 font-sans text-sm leading-relaxed text-espresso/80">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

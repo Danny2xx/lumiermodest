@@ -8,6 +8,7 @@
   --color-taupe-dark: #5c4530;
   --color-espresso: #3c2c20;
   --color-gold: #b08d57;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -21,10 +22,160 @@
   --font-serif: var(--font-cormorant);
   --font-script: var(--font-parisienne);
   --font-sans: var(--font-jost);
+  --ease-luxe: var(--ease-luxe);
+}
+
+/* ---------- Motion tokens: animate-* utilities ---------- */
+@theme {
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-twinkle: twinkle 2.8s ease-in-out infinite;
+  --animate-page-enter: page-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-slide-progress: slide-progress 5s linear forwards;
+  --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  --animate-spin-slow: spin 1.4s linear infinite;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(20deg);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes preloader-fallback {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ---------- Skeleton utilities ---------- */
+@utility skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: color-mix(in oklab, var(--color-taupe) 12%, var(--color-sand));
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(255 255 255 / 0.5) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.8s linear infinite;
+  }
+}
+
+@utility skeleton-dark {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(250 245 236 / 0.08);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(250 245 236 / 0.14) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.8s linear infinite;
+  }
 }
 
 body {
   background: var(--color-cream);
   color: var(--color-espresso);
   font-family: var(--font-jost), Arial, Helvetica, sans-serif;
+}
+
+/* Brand intro: hidden instantly when already seen this session (an inline
+   script sets the attribute before paint), and force-hidden after 4s if JS
+   never runs. */
+html[data-intro-seen] #lm-preloader {
+  display: none;
+}
+#lm-preloader {
+  animation: preloader-fallback 0s 4s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

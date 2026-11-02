@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Product } from "@/lib/products";
 import { useWishlist } from "./WishlistContext";
 
@@ -29,9 +30,13 @@ export default function WishlistButton({
       }}
       aria-label={saved ? "Remove from wishlist" : "Save to wishlist"}
       aria-pressed={saved}
-      className={`${base} transition-transform hover:scale-110 ${className}`}
+      className={`${base} transition-transform hover:scale-110 active:scale-90 ${className}`}
     >
-      <svg
+      <motion.svg
+        key={saved ? "saved" : "empty"}
+        initial={{ scale: saved ? 0.4 : 1 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 14 }}
         width="18"
         height="18"
         viewBox="0 0 24 24"
@@ -40,7 +45,7 @@ export default function WishlistButton({
         strokeWidth="1.5"
       >
         <path d="M12 20.5s-7.5-4.6-10-9.3C.6 8.1 2 4.5 5.4 3.7 8 3.1 10.3 4.4 12 7c1.7-2.6 4-3.9 6.6-3.3 3.4.8 4.8 4.4 3.4 7.5-2.5 4.7-10 9.3-10 9.3Z" />
-      </svg>
+      </motion.svg>
     </button>
   );
 }
