@@ -1,4 +1,6 @@
 import Flourish from "./Flourish";
+import Reveal from "./motion/Reveal";
+import SplitText from "./motion/SplitText";
 
 export default function CollectionHeader({
   eyebrow,
@@ -16,29 +18,37 @@ export default function CollectionHeader({
   return (
     <div className="mb-10 pb-10">
       {eyebrow && (
-        <p
-          className={`mb-2 font-sans text-xs uppercase tracking-[0.3em] ${
-            dark ? "text-gold" : "text-taupe-dark"
-          }`}
-        >
-          {eyebrow}
-        </p>
+        <Reveal mode="mount" variant="fade" delay={0.1} duration={0.8}>
+          <p
+            className={`mb-2 font-sans text-xs uppercase tracking-[0.3em] ${
+              dark ? "text-gold" : "text-taupe-dark"
+            }`}
+          >
+            {eyebrow}
+          </p>
+        </Reveal>
       )}
-      <h1
+      <SplitText
+        text={title}
+        as="h1"
+        by="char"
+        mode="mount"
+        delay={0.2}
+        stagger={0.035}
         className={`font-serif italic tracking-tight text-5xl sm:text-6xl ${
           dark ? "text-cream" : "text-taupe-dark"
         }`}
-      >
-        {title}
-      </h1>
-      <p
-        className={`mt-3 font-sans text-lg ${
-          dark ? "text-cream/70" : "text-espresso/80"
-        }`}
-      >
-        {subtitle}
-      </p>
-      <Flourish tone={dark ? "cream" : "taupe"} className="mt-8" />
+      />
+      <Reveal mode="mount" delay={0.6}>
+        <p
+          className={`mt-3 font-sans text-lg ${
+            dark ? "text-cream/70" : "text-espresso/80"
+          }`}
+        >
+          {subtitle}
+        </p>
+      </Reveal>
+      <Flourish tone={dark ? "cream" : "taupe"} className="mt-8" draw />
     </div>
   );
 }

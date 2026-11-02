@@ -1,7 +1,7 @@
 import BrandStamp from "@/components/BrandStamp";
 import ContactForm from "@/components/ContactForm";
 import Flourish from "@/components/Flourish";
-import { whatsAppLink } from "@/components/WhatsAppButton";
+import { whatsAppLink } from "@/lib/whatsapp";
 
 export const metadata = { title: "Contact — LumierModest" };
 

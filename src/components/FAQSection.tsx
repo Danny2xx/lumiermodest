@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Accordion from "./Accordion";
 import Flourish from "./Flourish";
+import Reveal from "./motion/Reveal";
+import SplitText from "./motion/SplitText";
+import { Stagger, StaggerItem } from "./motion/Stagger";
 
 const faqs = [
   {
@@ -54,17 +57,24 @@ export default function FAQSection() {
   return (
     <section className="bg-cream py-16">
       <div className="mx-auto max-w-2xl px-6">
-        <h2 className="text-center font-serif italic tracking-tight text-4xl text-taupe-dark">
-          Before you order
-        </h2>
-        <Flourish className="mt-6 mb-8" />
-        <div>
+        <SplitText
+          text="Before you order"
+          as="h2"
+          delay={0.1}
+          className="text-center font-serif italic tracking-tight text-4xl text-taupe-dark"
+        />
+        <Reveal variant="fade" delay={0.3}>
+          <Flourish className="mt-6 mb-8" draw />
+        </Reveal>
+        <Stagger stagger={0.08}>
           {faqs.map((faq) => (
-            <Accordion key={faq.q} title={faq.q}>
-              <p>{faq.a}</p>
-            </Accordion>
+            <StaggerItem key={faq.q}>
+              <Accordion title={faq.q}>
+                <p>{faq.a}</p>
+              </Accordion>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

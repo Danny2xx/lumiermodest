@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
 import SearchOverlay from "./SearchOverlay";
@@ -143,9 +144,15 @@ export default function Nav({
           >
             <HeartIcon />
             {wishlistCount > 0 && (
-              <span className="absolute -right-2 -top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-taupe-dark text-[10px] text-cream">
+              <motion.span
+                key={wishlistCount}
+                initial={{ scale: 0.3, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 520, damping: 15 }}
+                className="absolute -right-2 -top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-taupe-dark text-[10px] text-cream"
+              >
                 {wishlistCount}
-              </span>
+              </motion.span>
             )}
           </button>
           <button
@@ -155,9 +162,15 @@ export default function Nav({
           >
             <BagIcon />
             {count > 0 && (
-              <span className="absolute -right-2 -top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-taupe-dark text-[10px] text-cream">
+              <motion.span
+                key={count}
+                initial={{ scale: 0.3, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 520, damping: 15 }}
+                className="absolute -right-2 -top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-taupe-dark text-[10px] text-cream"
+              >
                 {count}
-              </span>
+              </motion.span>
             )}
           </button>
         </div>

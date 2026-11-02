@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CookiePreferences from "./CookiePreferences";
 import FooterNewsletterForm from "./FooterNewsletterForm";
-import { whatsAppLink } from "./WhatsAppButton";
+import { whatsAppLink } from "@/lib/whatsapp";
 
 function InstagramIcon() {
   return (
